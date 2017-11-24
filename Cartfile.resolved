@@ -1,0 +1,6 @@
+github "Alamofire/Alamofire" "4.5.1"
+github "Hearst-DD/ObjectMapper" "2.2.9"
+github "ReactiveX/RxSwift" "4.0.0"
+github "RxSwiftCommunity/RxAlamofire" "f10c385490e680a6422e3e403c08f71a19dd5f42"
+github "RxSwiftCommunity/RxRealm" "0.7.4"
+github "realm/realm-cocoa" "v3.0.2"
