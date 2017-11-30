@@ -9,6 +9,29 @@
 import Domain
 import RxSwift
 
+enum APIUser: EndpointProtocol {
+    case Users
+    case User(userId: String)
+    
+    private var pathString: String {
+        get {
+            switch self {
+            case .Users:
+                return "/users"
+            case .User(let userId):
+                return String(format: "/users/%@", userId)
+            }
+        }
+    }
+    var urlString: String {
+        get { return currentHost.urlString(path: self.pathString) }
+    }
+    var URL: NSURL? {
+        get { return NSURL(string: self.urlString) }
+    }
+}
+
+
 public final class UsersNetwork {
     private let network: Network<User>
     
@@ -17,10 +40,22 @@ public final class UsersNetwork {
     }
     
     public func getUsers() -> Observable<[User]> {
-        return network.getItems("users")
+        return network.getItems(APIUser.Users.urlString)
     }
     
     public func getUser(userId: String) -> Observable<User> {
-        return network.getItem("users", itemId: userId)
+        return network.getItem(APIUser.User(userId: userId).urlString)
+    }
+    
+    public func creatUsers(parameters: [String: Any]) -> Observable<User> {
+        return network.postItem(APIUser.Users.urlString, parameters: parameters)
+    }
+    
+    public func updateUsers(userId: String, parameters: [String: Any]) -> Observable<User> {
+        return network.updateItem(APIUser.User(userId: userId).urlString, parameters: parameters)
+    }
+    
+    public func deleteUsers(userId: String, parameters: [String: Any]) -> Observable<User> {
+        return network.deleteItem(APIUser.User(userId: userId).urlString)
     }
 }

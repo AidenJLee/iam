@@ -20,7 +20,7 @@ public final class QuestionsNetwork {
         return network.getItems("question")
     }
     
-    public func getQuestion(questionId: String) -> Observable<Question> {
-        return network.getItem("question", itemId: questionId)
-    }
+//    public func getQuestion(questionId: String) -> Observable<Question> {
+//        return network.getItem("question", itemId: questionId)
+//    }
 }

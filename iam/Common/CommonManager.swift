@@ -19,22 +19,13 @@ final class CM {
     // Tutorial
     var isComplatedTutorial: Bool
     
-    // UserInformation
-    var userInfo: User?
-    
-    
-    // ViewModels
-//    let loginViewModel: LoginViewModel
-//    let mainViewModel = MainViewModel()
     
     static let shared = CM()
     private init() {
         userId = Defaults[.userId]
         userPwd = Defaults[.userPwd]
         token = Defaults[.token]
-        isComplatedTutorial = Defaults[.isComplatedTutorial].boolValue
-//        loginViewModel =  LoginViewModel(id: userId, pwd: userPwd)
-//        mainViewModel.sendAppInfoAPI()
+        isComplatedTutorial = Defaults[.isComplatedTutorial]
     }
 }
 

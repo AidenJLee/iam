@@ -1,14 +1,14 @@
 //
-//  InstructionManualViewController.swift
+//  CategoryListViewController.swift
 //  iam
 //
-//  Created by HoJun Lee on 2017. 11. 23..
+//  Created by HoJun Lee on 2017. 11. 24..
 //  Copyright © 2017년 HoJun Lee. All rights reserved.
 //
 
 import UIKit
 
-class InstructionManualViewController: UIViewController, StoryboardInitializable {
+class CategoryListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +21,11 @@ class InstructionManualViewController: UIViewController, StoryboardInitializable
         // Dispose of any resources that can be recreated.
     }
     
-
+    @IBOutlet weak var testButtonAction: UIButton!
+    
+    @IBAction func tAction(_ sender: Any) {
+        self.navigationController?.pushViewController(InstructionManualViewController.initFromStoryboard(name: "Main"), animated: true)
+    }
     /*
     // MARK: - Navigation
 

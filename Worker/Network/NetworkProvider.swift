@@ -9,24 +9,18 @@
 import Domain
 
 final class NetworkProvider {
-    private let apiEndpoint: String
-    
-    public init() {
-        apiEndpoint = "https://jsonplaceholder.typicode.com"
-    }
-    
     public func creatUserNetwork() -> UsersNetwork {
-        let network = Network<User>(apiEndpoint)
+        let network = Network<User>()
         return UsersNetwork(network: network)
     }
     
     public func creatQuestionNetwork() -> QuestionsNetwork {
-        let network = Network<Question>(apiEndpoint)
+        let network = Network<Question>()
         return QuestionsNetwork(network: network)
     }
     
     public func creatAnswerNetwork() -> AnswerNetwork {
-        let network = Network<Answer>(apiEndpoint)
+        let network = Network<Answer>()
         return AnswerNetwork(network: network)
     }
 }

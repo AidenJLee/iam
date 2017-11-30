@@ -14,17 +14,13 @@ import RxSwift
 import ObjectMapper
 
 final class Network<T: ImmutableMappable> {
-    
-    private let endPoint: String
     private let scheduler: ConcurrentDispatchQueueScheduler
     
-    init(_ endPoint: String) {
-        self.endPoint = endPoint
+    init() {
         self.scheduler = ConcurrentDispatchQueueScheduler(qos: DispatchQoS(qosClass: DispatchQoS.QoSClass.background, relativePriority: 1))
     }
     
-    func getItems(_ path: String) -> Observable<[T]> {
-        let absolutePath = "\(endPoint)/\(path)"
+    func getItems(_ absolutePath: String) -> Observable<[T]> {
         return RxAlamofire
             .json(.get, absolutePath)
             .debug()
@@ -34,8 +30,7 @@ final class Network<T: ImmutableMappable> {
             })
     }
     
-    func getItem(_ path: String, itemId: String) -> Observable<T> {
-        let absolutePath = "\(endPoint)/\(path)/\(itemId)"
+    func getItem(_ absolutePath: String) -> Observable<T> {
         return RxAlamofire
             .request(.get, absolutePath)
             .debug()
@@ -45,8 +40,7 @@ final class Network<T: ImmutableMappable> {
             })
     }
     
-    func postItem(_ path: String, parameters: [String: Any]) -> Observable<T> {
-        let absolutePath = "\(endPoint)/\(path)"
+    func postItem(_ absolutePath: String, parameters: [String: Any]) -> Observable<T> {
         return RxAlamofire
             .request(.post, absolutePath, parameters: parameters)
             .debug()
@@ -56,8 +50,7 @@ final class Network<T: ImmutableMappable> {
             })
     }
     
-    func updateItem(_ path: String, itemId: String, parameters: [String: Any]) -> Observable<T> {
-        let absolutePath = "\(endPoint)/\(path)/\(itemId)"
+    func updateItem(_ absolutePath: String, parameters: [String: Any]) -> Observable<T> {
         return RxAlamofire
             .request(.put, absolutePath, parameters: parameters)
             .debug()
@@ -67,8 +60,7 @@ final class Network<T: ImmutableMappable> {
             })
     }
     
-    func deleteItem(_ path: String, itemId: String) -> Observable<T> {
-        let absolutePath = "\(endPoint)/\(path)/\(itemId)"
+    func deleteItem(_ absolutePath: String) -> Observable<T> {
         return RxAlamofire
             .request(.delete, absolutePath)
             .debug()
@@ -78,4 +70,5 @@ final class Network<T: ImmutableMappable> {
             })
     }
 }
+
 
