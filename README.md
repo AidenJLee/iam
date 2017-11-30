@@ -1,1 +1,265 @@
 # iam
+
+자기 자신에게 하는 질문.
+
+나를 찾아 가는 여행을 위한 셀프 인터뷰
+
+DripLife의 기능중 Prologue를 담당하는 부분만 떼어내서 하나의 앱으로 제작 중
+
+**Please change a Branch**: Master -> Dev 
+
+# 개발자들을 위한 추가 설명
+
+MVVM+Coordinator구조에서 Coordinator를 FlowController로 대체 함
+
+Model부분을 보려면 Project - Targer - Domain부분을 살펴보면 되며
+
+Networdk부분은 Project - Targer - Network부분을 통해 분리 해 놓음
+
+
+
+FlowController부분이 궁금하다면
+
+iam/Common/Protocols 폴더와 iam/Common/Scene/Instructions 폴더 참고
+
+
+
+# Requirements
+
+- Swift 4.0 (KetPath부분 변경점으로 인해 4.0으로 제작 + 지금 엑스코드 설정이 4.0....)
+- Carthage
+
+Package manager
+
+Carthage 사용 설치방법은 링크 참고 (Homebrew 이용시 'brew install carthage'로 설치 가능)
+
+Homebrew: You can use Homebrew and install the carthage tool on your system simply by running brew update and brew install carthage. (note: if you previously installed the binary version of Carthage, you should delete /Library/Frameworks/CarthageKit.framework).'
+
+
+
+Carthage 설치 후 터미널에서 아래 명령어 실행 (iOS용만 빌드)
+
+    $ carthage update --platform iOS
+
+이후 프로젝트를 열면 실행 가능
+
+- Swift 4.0.0 -> 4.0.2로 변경 됨에 따라서 Carthage에 빌드 된 파일을 인식할 수 없는 오류가 났을경우에는
+
+    $ carthage update --platform iOS --no-use-binaries
+
+명령어로 재빌드 후 클린 - 실행하면 해결 됨
+
+# MVVM + FlowController with Storyboard Pattern
+
+각 부분의 역할 정의
+
+이 부분은 이 프로젝트가 추구하는 방향이다.
+
+일반적으로 통용 되는 부분도 있고 개인적인 생각으로 제한하는 부분도 있다.
+
+## Model
+
+### Model이 기본적으로 가져가야 하는 일은 무엇이 있을까?
+
+데이터 구조를 선언 하는것이 Model이 해야 할 일이다. 
+
+Entity... Thats all.
+
+이 프로젝트에서는 모델정의를 위해 Domain이라는 타겟을 생성하여 관리 하고 있다.
+
+Mapping의 경우 어디서 처리 해야 하는지에 대해서는 각각의 판단에 따라 달라질 수 있다.
+
+이 어플의 경우는 편의를 위해서 모델에서 Mapping을 ObjectMapper를 통해 처리하고 있다. 
+
+이부분은 변경 여지가 있다.
+
+### Model이 하지 말아야 할 것이 무엇이 있을까?
+
+구조 선언 이외의 것들은 하지 말아야 한다.
+
+여기에서 데이터 처리를 하려고 해서는 안된다.
+
+가끔 데이터 변형 또는 치장을 하는 경우가 있는데 
+
+이 부분은 다른 파츠(viewModel)에서 하는것이 관점 분리적인 측면에서 좋다.
+
+(치장이라 함은 형변환이나 문자열 데이터에 ,를 넣거나 숫자를 통화로 변경하는등등... )
+
+## ViewModel
+
+### ViewModel이 기본적으로 가져가야 하는 일은 무엇이 있을까?
+
+
+
+### ViewModel이 하지 말아야 할 것이 무엇이 있을까?
+
+ViewModel은 UI에 관한것을 가지고 있으면 안된다.
+
+ViewModel은 다음 네비게이션에 대해서도 알지 못해야 한다. 
+
+이를 구조적으로 막기 위해서 UIKit을 import 하지 않는다. 
+
+(혹시나 다른 개발자의 소스 변경시에 에러가 나도록..)
+
+하지만 언제나 예외적인 상황은 발생 할 수 있다. 
+
+예를 들면 편의성이나 비지니스적인 요청에 의해서 ViewModel에서 image를 반환해야 하는 경우가 생긴다면
+
+제한 적으로 import UIKit.UIImage를 사용하기를 추천한다.
+
+이는 다른 특수한 상황에서 의도치 않게 UIKit을 사용하는것을 막아준다. 
+
+추가적으로 ViewModel을 구현 시 lifecycle을 항상 명심하시기 바란다.
+
+예를 들면 비지니스 로직을 처리 하기 위해 RxSwift를 사용하는 경우 
+
+ViewModel에서는 DisposeBag을 사용하지 않도록 구현해야 한다.
+
+예외사항이 있다면 ViewModel의 라이프 사이클에 바인딩을 걸어 뷰 모델에 따라 바뀌어야 할 로직 같은 경우.
+
+다른 경우가 생각나면 지속적으로 추가 할 예정
+
+## ViewController
+
+### ViewController가 기본적으로 가져가야 하는 일은 무엇이 있을까?
+
+UI적인 요소와 View에 대한 초기 설정은 ViewController가 해야할 기본적인 일이다. 
+
+여기에서 초기 설정이라 하면 UI적인 설정 부분도 있지만 Observable을 선언하고 이를 통해 ViewModel과 UI를 Binding하는 행위가 포함된다. 
+
+이 핵심적인 부분을 벗어난 것은 extension을 활용하여 하는것이 좋다. 
+
+extension에는 저장가능한 속성이 없으므로 class func을 통해 기.본.적.인 부분만 확장하도록 한다.
+
+ViewController는 항상 BindableType(Protocol)을 준수하여 Observable 프로퍼티를 가지고 UI를 바인딩 해야 한다.
+
+
+
+### ViewController가 하지 말아야 할 것이 무엇이 있을까?
+
+1. 네트워크를 직접 호출하는 행위 - 이런 행위는 View와 관련된게 아니고 비지니스적인 로직이나 데이터에 관련 된 부분이기 때문에 ViewModel쪽으로 넘겨야 한다.
+2. 데이터 처리 - 가끔보면 ViewModel을 View의 하위 클래스처럼 쓰는 경우가 있는데... VC에서 바인딩을 제외하고 ViewModel의 데이터에 직접 접근할 일은 없다. (바인딩을 위한 접근은 언제나 가능하다)
+3. Helper 구현 - UI에 관한 핼퍼나 데이터 변경 처리 등등.. 다양한 기능을 VC에서 하는 경우가 있는데 이 또한 따로 라이브러리를 만들어 쓰거나 UI에 한정하여 (저장 속성을 사용하지 않는..Property등.. ) extension으로 구현하는것을 추천한다
+
+
+
+# Coordinator -> FlowController
+
+기존에는 VIPER의 Router 기능+@로 Coordinator를 구현하려고 했었다.
+
+실상 Dependency Injection을 제외한 나머지 기능은 Storyboard의 기능이였고
+
+DI부분도 Storyboard의 segue를 확장하면 강제 할 수도 있었기 때문에
+
+굳이 다시 만들지 않고 있것을 확장하여 쓰기로 했다. 
+
+(사실 구현 다 했다... 별 삽질 다하면서.. 근대 있는거 쓰는데 더 깔끔하다. 이중 관리도 안하고-)
+
+---
+
+
+
+몇가지 변경점을 시사하자면.. 
+
+
+
+### App시작점에서 Window의 존재를 몰라도 된다.
+
+- Coordinator의 경우 아래와 같이 구현
+
+    window = UIWindow(frame: UIScreen.main.bounds)
+    appCoordinator = AppCoordinator(window: window!)
+    appCoordinator.start()
+    window?.makeKeyAndVisible()
+
+- FlowController의 경우
+
+    appFlowController = AppFlowController(
+    window = UIWindow(frame: UIScreen.main.bounds)
+    window?.rootViewController = appFlowController
+    window?.makeKeyAndVisible()
+    appFlowController.perform()
+
+
+
+### Stack 추가 제거
+
+- Coordinator
+
+    import RxSwift
+    
+    import UIKit
+    
+    import Foundation
+    
+    protocol FlowCoordinatorProtocol {
+    
+        func coordinate<T>(to coordinator: FlowCoordinator<T>) -> Observable<T>
+    
+    }
+    
+    class FlowCoordinator<ResultType>: FlowCoordinatorProtocol {
+        typealias CoordinationResult = ResultType
+        let disposeBag = DisposeBag()
+        let identifier = UUID()
+        let mainTabbarController: UITabBarController? = nil
+        private var childCoordinators = UUID: FlowCoordinatorProtocol
+        private func store<T>(coordinator: FlowCoordinator<T>) {
+            childCoordinators[coordinator.identifier] = coordinator
+        }
+        private func free<T>(coordinator: FlowCoordinator<T>) {
+            childCoordinators[coordinator.identifier] = nil
+        }
+        // ChileCoordinator가 있을경우 start()함수 호출과 함께 ChildCoordinator관련 정보를 다 지움
+        // 보통 present로 네비로 띄웠을 경우 이렇게 제거 함
+        func coordinate<T>(to coordinator: FlowCoordinator<T>) -> Observable<T> {
+            store(coordinator: coordinator)
+            return coordinator.start()
+                .do(onNext: { [weak self] _ in self?.free(coordinator: coordinator) })
+        }
+        /// - Returns: Result of coordinator job.
+        func start() -> Observable<ResultType> {
+            fatalError("Start method should be implemented.")
+        }
+    }
+
+위와 같은 구조에서 Store / free를 직접 호출하고 Login과 같은 새로 띄워야 하는 뷰는 coordinate를 통해 생성하여 나중에 지워야 하는 귀찮은 작업이 많다.
+
+
+
+- FlowController
+
+기존 스택의에 컨테이너 붙여서 사용 된다.... 이것도 귀찮긴 하지만 위에 비하면 쉽고 어짜피 해야 하는 작업이다.
+
+    extension UIViewController {
+      func add(childController: UIViewController) {
+        addChildViewController(childController)
+        view.addSubview(childController.view)
+        childController.didMove(toParentViewController: self)
+      }
+     
+      func remove(childController: UIViewController) {
+        childController.willMove(toParentViewController: nil)
+        childController.view.removeFromSuperview()
+        childController.removeFromParentViewController()
+      }
+    }
+
+
+
+
+
+기타 등등... 의 편의성에 의해 FlowController로 변경하여 구현 중이다.
+
+
+
+기타... 
+
+
+## Bugs / Feature Requests
+
+Think you’ve found a bug?
+
+Please open a case in issue page.
+
+
