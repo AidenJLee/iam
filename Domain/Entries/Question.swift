@@ -6,8 +6,6 @@
 //  Copyright © 2017년 HoJun Lee. All rights reserved.
 //
 
-import ObjectMapper
-
 public struct Question {
     public let uid: String
     public let category: String
@@ -22,15 +20,6 @@ public struct Question {
         self.category = category
         self.question = question
         self.writer = writer
-    }
-}
-
-extension Question: ImmutableMappable {     // JSON -> Object
-    public init(map: Map) throws {
-        uid = try map.value("id")
-        category = try map.value("category")
-        question = try map.value("question")
-        writer = try map.value("writer")
     }
 }
 

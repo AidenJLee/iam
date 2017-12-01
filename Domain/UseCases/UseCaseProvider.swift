@@ -9,5 +9,6 @@
 import Foundation
 
 public protocol UseCaseProvider {
-    func creatAnswersUseCase() -> AnswerUseCase
+    func createAnswersUseCase() -> AnswerUseCase
+//    func createCategoryUseCase() -> CategoryUseCase
 }

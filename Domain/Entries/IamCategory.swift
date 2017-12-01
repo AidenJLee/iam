@@ -6,8 +6,6 @@
 //  Copyright © 2017년 HoJun Lee. All rights reserved.
 //
 
-import Foundation
-
 public struct IamCategory {
     public let uid: String
     public let name: String
@@ -22,5 +20,14 @@ public struct IamCategory {
         self.name = name
         self.description = description
         self.aa = aa
+    }
+}
+
+extension IamCategory: Equatable {
+    public static func == (lhs: IamCategory, rhs: IamCategory) -> Bool {
+        return lhs.uid == rhs.uid &&
+            lhs.name == rhs.name &&
+            lhs.description == rhs.description &&
+            lhs.aa == rhs.aa
     }
 }

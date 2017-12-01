@@ -11,29 +11,42 @@ import Domain
 import RxSwift
 import RxCocoa
 
-final class InstructionBookViewModel: ViewModelType {
-    struct Input {
-        let fetching: PublishSubject<Void>
-        //        let selection: Observable<IdexPath>
-    }
-    struct Output {
-        let trigger: Observable<Bool>
-    }
+final class InstructionBookViewModel: ViewModelInput, ViewModelOutput, ViewModelTypeProtocol {
+    var number = Variable<Int>(100)
+    var numberObservable: Observable<Int>
+    
+    var inputs: ViewModelInput { return self }
+    var outputs: ViewModelOutput { return self }
     
     init() {
-        
+        self.numberObservable = number.asObservable()
     }
     
-    func inOutTransform(input: Input) -> Output {
-        let activityIndicator = ActivityIndicator()
-        //        let cates = input.trigger.flatMapLatest {_ in
-        //            return self.useCase
-        //                .answers(user: User(uid: "", nickName: "", email: "", name: "", phone: "", certiUrl: ""))
-        //                .trackActivity(activityIndicator)
-        //                .asDriverOnErrorJustComplete()
-        //                .map { $0 }
-        //        }
-        return Output(trigger: activityIndicator.asObservable())
+}
+
+extension InstructionBookViewModel {
+    func request1() {
+        
+    }
+    func request2() {
+        
+    }
+    func request3() {
+        
     }
 }
 
+protocol ViewModelInput {
+    func request1()
+    func request2()
+    func request3()
+}
+
+protocol ViewModelOutput {
+    var numberObservable: Observable<Int> { get }
+}
+
+protocol ViewModelTypeProtocol {
+    var inputs: ViewModelInput { get }
+    var outputs: ViewModelOutput { get }
+}

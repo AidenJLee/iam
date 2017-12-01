@@ -11,20 +11,14 @@ import RxSwift
 
 private let reuseIdentifier = "CellCategory"
 
-class CategoryListViewController: UICollectionViewController, BindableType {
+class CategoryListViewController: UICollectionViewController {
     
     let disposeBag = DisposeBag()
     let viewState = Variable(ViewState.Empty)
     
     var viewModel: CategoryListViewModel!
     
-    func setViewModel(_ model: CategoryListViewModel!) {
-        self.viewModel = model
-    }
     
-    func bindViewModel() {
-        print("implement bind something")
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -105,11 +99,4 @@ class CategoryListViewController: UICollectionViewController, BindableType {
      }
      */
 
-}
-
-extension CategoryListViewController {
-    func assertDependencies() {
-        //        assert(viewModel != nil)
-        //        fatalError("assertDependencies method should be implemented.")
-    }
 }

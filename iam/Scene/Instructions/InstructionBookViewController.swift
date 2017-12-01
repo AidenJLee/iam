@@ -22,13 +22,22 @@ class InstructionBookViewController: UIViewController, BindableType {
     
     func bindViewModel() {
         print("implement bind something")
-//        viewModel.inOutTransform(input: InstructionBookViewModel.Input)
+        viewModel.outputs.numberObservable
+            .subscribe(onNext: { number in
+                print(number)
+            })
+            .disposed(by: disposeBag)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        bindViewModel()
         assertDependencies()    // Checking
-//        viewModel.
+        
+        let time = DispatchTime.now() + .seconds(5)
+        DispatchQueue.main.asyncAfter(deadline: time) {
+            self.viewModel.number.value = 10
+        }
     }
 
     override func didReceiveMemoryWarning() {

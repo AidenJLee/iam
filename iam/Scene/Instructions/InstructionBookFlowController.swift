@@ -32,10 +32,6 @@ class InstructionBookFlowController: UIViewController, StoryboardInitializable, 
         }
      }
     
-    override func performSegue(withIdentifier identifier: String, sender: Any?) {
-        
-    }
-    
 }
 
 extension InstructionBookFlowController {

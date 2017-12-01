@@ -6,14 +6,6 @@
 //  Copyright © 2017년 HoJun Lee. All rights reserved.
 //
 
-import ObjectMapper
-
-enum AnswerType {
-    case free
-    case choices
-    case grade
-}
-
 public struct Answer {
     public let uid: String
     public let userId: String
@@ -28,15 +20,6 @@ public struct Answer {
     }
 }
 
-extension Answer: ImmutableMappable {      // JSON -> Object
-    public init(map: Map) throws {
-        uid = try map.value("id")
-        userId = try map.value("userId")
-        questionId = try map.value("questionId")
-        answer = try map.value("answer")
-    }
-}
-
 extension Answer: Equatable {
     public static func == (lhs: Answer, rhs: Answer) -> Bool {
         return lhs.uid == rhs.uid &&
@@ -46,3 +29,9 @@ extension Answer: Equatable {
     }
 }
 
+// 적용 할까 말까...
+enum AnswerType {
+    case free
+    case choices
+    case grade
+}
