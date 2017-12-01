@@ -1,5 +1,5 @@
 //
-//  LoginViewController.swift
+//  SampleViewController.swift
 //  iam
 //
 //  Created by HoJun Lee on 2017. 12. 1..
@@ -9,11 +9,11 @@
 import UIKit
 import RxSwift
 
-class LoginViewController: UIViewController, BindableType {
+class SampleViewController: UIViewController, BindableType {
     let disposeBag = DisposeBag()
-    var viewModel: LoginViewModel!
+    var viewModel: SampleViewModel!
     
-    func setViewModel(_ model: LoginViewModel!) {
+    func setViewModel(_ model: SampleViewModel!) {
         self.viewModel = model
     }
     
@@ -24,13 +24,13 @@ class LoginViewController: UIViewController, BindableType {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 }
 
-extension LoginViewController {
+extension SampleViewController {
     func assertDependencies() {
         assert(viewModel != nil)
     }

@@ -8,6 +8,11 @@
 
 import UIKit
 
+public enum Storyboard: String {
+    case Main
+    case Login
+}
+
 protocol StoryboardInitializable {
     static var storyboardIdentifier: String { get }
 }
@@ -17,8 +22,8 @@ extension StoryboardInitializable where Self: UIViewController {
         return String(describing: Self.self)
     }
     
-    static func initFromStoryboard(name: String = "Main") -> Self {
-        let storyboard = UIStoryboard(name: name, bundle: Bundle.main)
+    static func initFromStoryboard(name: Storyboard = .Main) -> Self {
+        let storyboard = UIStoryboard(name: name.rawValue, bundle: Bundle.main)
         return storyboard.instantiateViewController(withIdentifier: storyboardIdentifier) as! Self
     }
 }

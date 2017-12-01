@@ -56,7 +56,8 @@ final class AppFlowController: UIViewController, FlowControllerType {
     }
     
     private func showLogin() {
-        
+        let vc = LoginFlowController.initFromStoryboard(name: .Login)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     private func showTutorial() {
@@ -64,14 +65,13 @@ final class AppFlowController: UIViewController, FlowControllerType {
     }
     
     private func showMain() {
-        let vc = InstructionBookFlowController.initFromStoryboard(name: "Main")
+        let vc = InstructionBookFlowController.initFromStoryboard(name: .Main)
         self.navigationController?.pushViewController(vc, animated: true)
     }
 
     private func showCategory() {
     
     }
-    
 }
 
 

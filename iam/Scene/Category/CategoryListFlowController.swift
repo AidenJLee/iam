@@ -41,7 +41,6 @@ class CategoryListFlowController: UIViewController, StoryboardInitializable, Seg
             assertionFailure("Segue identifier empty; all segues should have an identifier.")
         }
     }
-
 }
 
 extension CategoryListFlowController {

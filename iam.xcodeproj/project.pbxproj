@@ -17,6 +17,9 @@
 		0F62BD061FD119CC0045FE6E /* Question+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F62BD051FD119CC0045FE6E /* Question+Mapping.swift */; };
 		0F62BD081FD119DD0045FE6E /* Answer+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F62BD071FD119DD0045FE6E /* Answer+Mapping.swift */; };
 		0F62BD0A1FD119ED0045FE6E /* IamCategory+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F62BD091FD119ED0045FE6E /* IamCategory+Mapping.swift */; };
+		0F62BD171FD13BB60045FE6E /* SampleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F62BD161FD13BB60045FE6E /* SampleViewModel.swift */; };
+		0F62BD191FD13C100045FE6E /* SampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F62BD181FD13C100045FE6E /* SampleViewController.swift */; };
+		0F62BD1B1FD13C1C0045FE6E /* SampleFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F62BD1A1FD13C1C0045FE6E /* SampleFlowController.swift */; };
 		0F7A05E61FCE714E0082BF09 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA2C7D91FC72903001F6A59 /* RxCocoa.framework */; };
 		0F7A05E81FCE7AC70082BF09 /* AppFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7A05E71FCE7AC70082BF09 /* AppFlowController.swift */; };
 		0F7A05EA1FCEA1E30082BF09 /* FlowControllerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7A05E91FCEA1E30082BF09 /* FlowControllerType.swift */; };
@@ -167,6 +170,9 @@
 		0F62BD051FD119CC0045FE6E /* Question+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Question+Mapping.swift"; sourceTree = "<group>"; };
 		0F62BD071FD119DD0045FE6E /* Answer+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Answer+Mapping.swift"; sourceTree = "<group>"; };
 		0F62BD091FD119ED0045FE6E /* IamCategory+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IamCategory+Mapping.swift"; sourceTree = "<group>"; };
+		0F62BD161FD13BB60045FE6E /* SampleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleViewModel.swift; sourceTree = "<group>"; };
+		0F62BD181FD13C100045FE6E /* SampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleViewController.swift; sourceTree = "<group>"; };
+		0F62BD1A1FD13C1C0045FE6E /* SampleFlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleFlowController.swift; sourceTree = "<group>"; };
 		0F7A05E71FCE7AC70082BF09 /* AppFlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlowController.swift; sourceTree = "<group>"; };
 		0F7A05E91FCEA1E30082BF09 /* FlowControllerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowControllerType.swift; sourceTree = "<group>"; };
 		0F7A05EB1FCEAC000082BF09 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
@@ -321,6 +327,16 @@
 				0F62BD011FD1179F0045FE6E /* RMCategory.swift */,
 			);
 			path = Entries;
+			sourceTree = "<group>";
+		};
+		0F62BD151FD13BA50045FE6E /* Sample */ = {
+			isa = PBXGroup;
+			children = (
+				0F62BD161FD13BB60045FE6E /* SampleViewModel.swift */,
+				0F62BD181FD13C100045FE6E /* SampleViewController.swift */,
+				0F62BD1A1FD13C1C0045FE6E /* SampleFlowController.swift */,
+			);
+			path = Sample;
 			sourceTree = "<group>";
 		};
 		0F7A05ED1FCEAC070082BF09 /* Storyboards */ = {
@@ -526,6 +542,7 @@
 			isa = PBXGroup;
 			children = (
 				0F9FED9A1FC6C17800B99A27 /* EntryViewController.swift */,
+				0F62BD151FD13BA50045FE6E /* Sample */,
 				0F7A05F01FCEFDDF0082BF09 /* Instructions */,
 				0F7F8DB41FC7F39200275994 /* Category */,
 				0F8E30271FD0FC4D006EC583 /* Login */,
@@ -969,6 +986,8 @@
 				0FA2C7E01FC72A9A001F6A59 /* CommonManager.swift in Sources */,
 				0F7A05EA1FCEA1E30082BF09 /* FlowControllerType.swift in Sources */,
 				0F7A05F21FCEFDFC0082BF09 /* InstructionBookFlowController.swift in Sources */,
+				0F62BD171FD13BB60045FE6E /* SampleViewModel.swift in Sources */,
+				0F62BD1B1FD13C1C0045FE6E /* SampleFlowController.swift in Sources */,
 				0F8E302D1FD0FC74006EC583 /* LoginViewModel.swift in Sources */,
 				0FA2C7DC1FC72976001F6A59 /* StoryboardInitializable.swift in Sources */,
 				0F9FEDBA1FC6EA3900B99A27 /* ViewModelType.swift in Sources */,
@@ -982,6 +1001,7 @@
 				0F7F8DCA1FC7FBC100275994 /* CategoryListViewModel.swift in Sources */,
 				0FA2C7E21FC72AE7001F6A59 /* SwiftyUserDefaults.swift in Sources */,
 				0F9FED981FC6C14700B99A27 /* ServiceFactory.swift in Sources */,
+				0F62BD191FD13C100045FE6E /* SampleViewController.swift in Sources */,
 				0F3EDCB71FCFBAB00015CBE4 /* SegueHandler.swift in Sources */,
 				0F09B5E61FCD8F4600EE6AC8 /* ActivityIndicator.swift in Sources */,
 				0F7A05F61FCF05B30082BF09 /* InstructionBookViewModel.swift in Sources */,

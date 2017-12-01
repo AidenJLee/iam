@@ -1,8 +1,8 @@
 //
-//  InstructionBookViewModel.swift
+//  SampleViewModel.swift
 //  iam
 //
-//  Created by HoJun Lee on 2017. 11. 30..
+//  Created by HoJun Lee on 2017. 12. 1..
 //  Copyright © 2017년 HoJun Lee. All rights reserved.
 //
 
@@ -10,7 +10,7 @@ import Domain
 import RxSwift
 import RxCocoa
 
-final class InstructionBookViewModel: ViewModelType {
+final class SampleViewModel: ViewModelType {
     struct Input {
         let trigger: Driver<Void>
         let selection: Driver<IndexPath>
@@ -30,3 +30,4 @@ final class InstructionBookViewModel: ViewModelType {
         return Output(fetching: activityIndicator.asObservable())
     }
 }
+

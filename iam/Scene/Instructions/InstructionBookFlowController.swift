@@ -9,7 +9,6 @@
 import UIKit
 
 class InstructionBookFlowController: UIViewController, StoryboardInitializable, SegueHandler {
-    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -31,7 +30,6 @@ class InstructionBookFlowController: UIViewController, StoryboardInitializable, 
             assertionFailure("Segue identifier empty; all segues should have an identifier.")
         }
      }
-    
 }
 
 extension InstructionBookFlowController {

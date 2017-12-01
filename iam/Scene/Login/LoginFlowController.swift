@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginFlowController: UIViewController {
+class LoginFlowController: UIViewController, StoryboardInitializable, SegueHandler {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,14 +22,23 @@ class LoginFlowController: UIViewController {
     }
     
 
-    /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        switch segueIdentifierCase(for: segue) {
+        case .embededLogin:
+            let nextVC = segue.destination as! LoginViewController
+            nextVC.setViewModel(LoginViewModel())
+        case .unnamed:
+            assertionFailure("Segue identifier empty; all segues should have an identifier.")
+        }
     }
-    */
+}
 
+extension LoginFlowController {
+    enum ViewControllerSegue: String {
+        case embededLogin
+        case unnamed = ""
+    }
 }

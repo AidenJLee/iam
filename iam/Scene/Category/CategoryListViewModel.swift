@@ -6,8 +6,6 @@
 //  Copyright © 2017년 HoJun Lee. All rights reserved.
 //
 
-import UIKit
-import Foundation
 import Domain
 import RxSwift
 import RxCocoa

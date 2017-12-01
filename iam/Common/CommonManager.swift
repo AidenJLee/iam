@@ -9,7 +9,6 @@
 import UIKit
 
 final class CM {
-    
     // Login info
     var userId: String
     var userPwd: String
