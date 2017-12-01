@@ -19,6 +19,8 @@ final class AppFlowController: UIViewController, FlowControllerType {
     var showcase: FirstScene = .Main
     @IBOutlet weak var lbIntro: UILabel!
     override func viewDidLoad() {
+        
+        // warning: FlowController는 UI에 관여해서는 안된다.. 이 부분은 샘플로 임시 구현 부분. 향후 제거 후 VC으로 변경하던가 사라질 예정
         let attributedStringParagraphStyle = NSMutableParagraphStyle()
         attributedStringParagraphStyle.alignment = NSTextAlignment.center
         

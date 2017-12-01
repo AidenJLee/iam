@@ -6,4 +6,18 @@
 //  Copyright © 2017년 HoJun Lee. All rights reserved.
 //
 
-import Foundation
+enum ViewState {
+    case Empty
+    case Requesting
+    case Done
+    case Error(Error)
+    
+    func fetchEnabled() -> Bool {
+        switch self {
+        case .Empty, .Done:
+            return true
+        default:
+            return false
+        }
+    }
+}

@@ -7,8 +7,12 @@
 //
 
 import UIKit
+import RxSwift
 
 class InstructionBookViewController: UIViewController, BindableType {
+    
+    let disposeBag = DisposeBag()
+    let viewState = Variable(ViewState.Empty)
     
     var viewModel: InstructionBookViewModel!
     
@@ -24,7 +28,7 @@ class InstructionBookViewController: UIViewController, BindableType {
     override func viewDidLoad() {
         super.viewDidLoad()
         assertDependencies()    // Checking
-        // Do any additional setup after loading the view.
+//        viewModel.
     }
 
     override func didReceiveMemoryWarning() {

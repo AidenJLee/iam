@@ -22,10 +22,10 @@ final class CategoryListViewModel: ViewModelType {
         let fetching: Driver<Bool>
     }
     
-    private let useCase: AnswerUseCase
+//    private let useCase: AnswerUseCase
     
-    init(useCase: AnswerUseCase) {
-        self.useCase = useCase
+    init() {
+//        self.useCase = useCase
     }
     
     func inOutTransform(input: Input) -> Output {
