@@ -12,8 +12,8 @@ class SampleFlowController: UIViewController, StoryboardInitializable, SegueHand
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segueIdentifierCase(for: segue) {
         case .embededSample:
-            let nextVC = segue.destination as! SampleViewController
-            nextVC.setViewModel(SampleViewModel())
+            var nextVC = segue.destination as! SampleViewController
+            nextVC.bindViewModel(to: SampleViewModel())
         case .unnamed:
             assertionFailure("Segue identifier empty; all segues should have an identifier.")
         }

@@ -10,14 +10,11 @@ import UIKit
 import RxSwift
 
 class LoginViewController: UIViewController, BindableType {
-    let disposeBag = DisposeBag()
+    let bag = DisposeBag()
     var viewModel: LoginViewModel!
     
-    func setViewModel(_ model: LoginViewModel!) {
-        self.viewModel = model
-    }
-    
     func bindViewModel() {
+        assert(viewModel != nil)
         print("implement bind something")
     }
     
@@ -27,11 +24,5 @@ class LoginViewController: UIViewController, BindableType {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-    }
-}
-
-extension LoginViewController {
-    func assertDependencies() {
-        assert(viewModel != nil)
     }
 }

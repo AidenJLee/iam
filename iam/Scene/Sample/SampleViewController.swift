@@ -10,14 +10,11 @@ import UIKit
 import RxSwift
 
 class SampleViewController: UIViewController, BindableType {
-    let disposeBag = DisposeBag()
+    let bag = DisposeBag()
     var viewModel: SampleViewModel!
     
-    func setViewModel(_ model: SampleViewModel!) {
-        self.viewModel = model
-    }
-    
     func bindViewModel() {
+        assert(viewModel != nil)
         print("implement bind something")
     }
     
@@ -25,13 +22,12 @@ class SampleViewController: UIViewController, BindableType {
         super.viewDidLoad()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("resources: \(RxSwift.Resources.total)")
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-    }
-}
-
-extension SampleViewController {
-    func assertDependencies() {
-        assert(viewModel != nil)
     }
 }

@@ -11,14 +11,20 @@ import RxSwift
 
 protocol BindableType {
     associatedtype VMType
-    var viewModel: VMType { get set }
+    var bag: DisposeBag { get }
+    var viewModel: VMType! { get set }
     func bindViewModel()
-    func assertDependencies()
 }
 
 extension BindableType where Self: UIViewController {
-    mutating func setViewModel(_ model: Self.VMType) {
+    mutating func bindViewModel(to model: Self.VMType) {
         viewModel = model
         loadViewIfNeeded()
+        bindViewModel()
+    }
+    func bind<T>(variable: Variable<T>, _ observer: AnyObserver<T>) {
+        variable.asObservable()
+            .bind(to: observer)
+            .disposed(by: bag)
     }
 }

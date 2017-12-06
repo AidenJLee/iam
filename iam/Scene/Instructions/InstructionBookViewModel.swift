@@ -25,7 +25,7 @@ final class InstructionBookViewModel: ViewModelType {
         
     }
     
-    func inOutTransform(input: Input) -> Output {
+    func OutputTransformer(input: Input) -> Output {
         let activityIndicator = ActivityIndicator()
         return Output(fetching: activityIndicator.asObservable())
     }

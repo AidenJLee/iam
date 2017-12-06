@@ -10,30 +10,40 @@ import UIKit
 import RxSwift
 
 class InstructionBookViewController: UIViewController, BindableType {
-    let disposeBag = DisposeBag()
+    let bag = DisposeBag()
     var viewModel: InstructionBookViewModel!
     
-    func setViewModel(_ model: InstructionBookViewModel!) {
-        self.viewModel = model
+    @IBOutlet weak var tfTransfromTest: UITextField!
+    let convert: (String) -> UInt? = { value in
+        if let number = UInt(value), number < 10 {
+            return number
+        }
+        let convert: [String: UInt] = [
+            "abc": 2, "def": 3, "ghi": 4,
+            "jkl": 5, "mno": 6, "pqrs": 7,
+            "tuv": 8, "wxyz": 9
+        ]
+        var converted: UInt? = nil
+        
+        convert.keys.forEach {
+            if $0.contains(value.lowercased()) {
+                converted = convert[$0]
+            }
+        }
+        return converted
     }
     
     func bindViewModel() {
+        assert(viewModel != nil)
         print("implement bind something")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        assertDependencies()    // Checking
-        bindViewModel()
+        print("viewDidLoad")
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-    }
-}
-
-extension InstructionBookViewController {
-    func assertDependencies() {
-        assert(viewModel != nil)
     }
 }

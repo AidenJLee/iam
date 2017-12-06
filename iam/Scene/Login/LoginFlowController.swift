@@ -28,8 +28,8 @@ class LoginFlowController: UIViewController, StoryboardInitializable, SegueHandl
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segueIdentifierCase(for: segue) {
         case .embededLogin:
-            let nextVC = segue.destination as! LoginViewController
-            nextVC.setViewModel(LoginViewModel())
+            var nextVC = segue.destination as! LoginViewController
+            nextVC.bindViewModel(to: LoginViewModel())
         case .unnamed:
             assertionFailure("Segue identifier empty; all segues should have an identifier.")
         }

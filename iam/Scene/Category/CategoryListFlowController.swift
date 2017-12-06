@@ -9,34 +9,36 @@
 import UIKit
 import Domain
 
-class CategoryListFlowController: UIViewController, StoryboardInitializable, SegueHandler, BindableType {
+class CategoryListFlowController: UIViewController, StoryboardInitializable, SegueHandler {
+    weak var delegate: CategoryListFlowController?
+    
     var viewModel: CategoryListViewModel!
-    
-    func setViewModel(_ model: CategoryListViewModel!) {
-        self.viewModel = model
-    }
-    
-    func bindViewModel() {
-        print("implement bind something")
+    var containerVC: CategoryListViewController!
+    private var categoryVC: CategoryListViewController? {
+        didSet {
+            categoryVC?.delegate = self
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        viewModel = CategoryListViewModel(useCase: UseCaseProvider, flowController: self)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-
+    func createViewModel() {
+//        viewModel = CategoryListViewModel(useCase: "", flowController: "")
+    }
+    
     // MARK: - Navigation
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segueIdentifierCase(for: segue) {
         case .embededCategory:
-            let nextVC = segue.destination as! CategoryListViewController
-            nextVC.viewModel = self.viewModel
+            containerVC = segue.destination as! CategoryListViewController
+            containerVC.viewModel = self.viewModel
         case .unnamed:
             assertionFailure("Segue identifier empty; all segues should have an identifier.")
         }
@@ -49,13 +51,4 @@ extension CategoryListFlowController {
         case embededCategory
         case unnamed = ""
     }
-    // checking
-    func assertDependencies() {
-        //        assert(viewModel != nil)
-        //        fatalError("assertDependencies method should be implemented.")
-    }
-}
-
-extension CategoryListViewController {
-    
 }

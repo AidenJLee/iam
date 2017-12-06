@@ -8,14 +8,9 @@
 
 import UIKit
 
-class InstructionBookFlowController: UIViewController, StoryboardInitializable, SegueHandler {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+class InstructionBookFlowController: UIViewController, StoryboardInitializable, SegueHandler, FlowControllerType {
+    func perform(from viewController: UIViewController) {
+        
     }
     
      // MARK: - Navigation
@@ -24,8 +19,9 @@ class InstructionBookFlowController: UIViewController, StoryboardInitializable, 
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segueIdentifierCase(for: segue) {
         case .embededInstructionBook:
-            let nextVC = segue.destination as! InstructionBookViewController
-            nextVC.setViewModel(InstructionBookViewModel())
+            var nextVC = segue.destination as! InstructionBookViewController
+            let viewModel = InstructionBookViewModel()
+            nextVC.bindViewModel(to: viewModel)
         case .unnamed:
             assertionFailure("Segue identifier empty; all segues should have an identifier.")
         }

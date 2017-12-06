@@ -13,5 +13,13 @@ protocol FlowControllerType: class {
 }
 
 extension FlowControllerType where Self: UIViewController {
-    
+    func push(to vc:UIViewController) {
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    func pop() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    func pop(to vc:UIViewController) {
+        self.navigationController?.popToViewController(vc, animated: true)
+    }
 }

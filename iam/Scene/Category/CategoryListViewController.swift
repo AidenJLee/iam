@@ -8,25 +8,30 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
 
 private let reuseIdentifier = "CellCategory"
 
-class CategoryListViewController: UICollectionViewController {
-    let disposeBag = DisposeBag()
+class CategoryListViewController: UICollectionViewController, BindableType {
+    weak var delegate: CategoryListFlowController?
     let viewState = Variable(ViewState.Empty)
     
+    let bag = DisposeBag()
     var viewModel: CategoryListViewModel!
+    func bindViewModel() {
+        assert(viewModel != nil)
+        let viewWillAppear = rx.sentMessage(#selector(UIViewController.viewWillAppear(_:)))
+            .map { _ in }
+            .asDriver { error in return Driver.empty() }
+        let input = CategoryListViewModel.Input(trigger: viewWillAppear.asDriver(), selection: self.collectionView!.rx.itemSelected.asDriver())
+        let output = viewModel.OutputTransformer(input: input)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Register cell classes
+        assertDependencies()
+        bindViewModel()
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-        
-        // Do any additional setup after loading the view.
     }
     
     override func didReceiveMemoryWarning() {
@@ -86,4 +91,10 @@ class CategoryListViewController: UICollectionViewController {
      }
      */
 
+}
+
+extension CategoryListViewController {
+    func assertDependencies() {
+        assert(viewModel != nil)
+    }
 }
