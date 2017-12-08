@@ -8,7 +8,8 @@
 
 import Foundation
 
+// MARK: - Interface
 public protocol UseCaseProvider {
-    func createAnswersUseCase() -> AnswerUseCase
-//    func createCategoryUseCase() -> CategoryUseCase
+    func makeCategoryUseCase() -> CategoryUseCase
+    //    func makeAnswersUseCase() -> AnswerUseCase
 }

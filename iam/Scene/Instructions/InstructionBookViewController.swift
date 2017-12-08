@@ -9,29 +9,11 @@
 import UIKit
 import RxSwift
 
-class InstructionBookViewController: UIViewController, BindableType {
+class InstructionBookViewController: UIViewController, BindableType, UITableViewDelegate, UITableViewDataSource {
     let bag = DisposeBag()
     var viewModel: InstructionBookViewModel!
     
-    @IBOutlet weak var tfTransfromTest: UITextField!
-    let convert: (String) -> UInt? = { value in
-        if let number = UInt(value), number < 10 {
-            return number
-        }
-        let convert: [String: UInt] = [
-            "abc": 2, "def": 3, "ghi": 4,
-            "jkl": 5, "mno": 6, "pqrs": 7,
-            "tuv": 8, "wxyz": 9
-        ]
-        var converted: UInt? = nil
-        
-        convert.keys.forEach {
-            if $0.contains(value.lowercased()) {
-                converted = convert[$0]
-            }
-        }
-        return converted
-    }
+    @IBOutlet weak var tableView: UITableView!
     
     func bindViewModel() {
         assert(viewModel != nil)
@@ -46,4 +28,17 @@ class InstructionBookViewController: UIViewController, BindableType {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return self.view.bounds.height
+    }
+    
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 0
+    }
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
+    }
+    
 }

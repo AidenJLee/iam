@@ -9,13 +9,13 @@
 import Domain
 import ObjectMapper
 
-extension Answer: Encodable, Identifiable {
+extension Answer: Encodable {//}, Identifiable {
     var encoder: NETAnswer {
         return NETAnswer(with: self)
     }
 }
 
-final class NETAnswer: NSObject, NSCoding, DomainConvertibleType {
+final class NETAnswer: NSObject, NSCoding, DomainConvertableType {
     struct Keys {
         static let uid = "uid"
         static let userId = "userId"

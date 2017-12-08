@@ -11,5 +11,5 @@ import RxSwift
 
 public protocol AnswerUseCase {
     func answers(user: User) -> Observable<[Answer]>
-    func save(answer: Answer) -> Observable<Void>
+    func save(answer: Answer) -> Observable<String>
 }

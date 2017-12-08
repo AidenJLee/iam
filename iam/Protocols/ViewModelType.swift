@@ -11,5 +11,5 @@ import Foundation
 protocol ViewModelType {
     associatedtype Input
     associatedtype Output
-    func OutputTransformer(input: Input) -> Output
+//    func OutputTransformer(input: Input) -> Output
 }

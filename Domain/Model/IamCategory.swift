@@ -7,27 +7,27 @@
 //
 
 public struct IamCategory {
-    public let uid: String
+    public let id: String
     public let name: String
-    public let description: String
+    public let depiction: String
     public let aa: String
     
-    public init(uid: String,
+    public init(id: String,
                 name: String,
-                description: String,
+                depiction: String,
                 aa: String) {
-        self.uid = uid
+        self.id = id
         self.name = name
-        self.description = description
+        self.depiction = depiction
         self.aa = aa
     }
 }
 
 extension IamCategory: Equatable {
     public static func == (lhs: IamCategory, rhs: IamCategory) -> Bool {
-        return lhs.uid == rhs.uid &&
+        return lhs.id == rhs.id &&
             lhs.name == rhs.name &&
-            lhs.description == rhs.description &&
+            lhs.depiction == rhs.depiction &&
             lhs.aa == rhs.aa
     }
 }

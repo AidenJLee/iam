@@ -20,6 +20,11 @@ class CategoryListFlowController: UIViewController, StoryboardInitializable, Seg
         }
     }
     
+    override func loadView() {
+        super.loadView()
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -29,7 +34,7 @@ class CategoryListFlowController: UIViewController, StoryboardInitializable, Seg
     }
     
     func createViewModel() {
-//        viewModel = CategoryListViewModel(useCase: "", flowController: "")
+//        viewModel = CategoryListViewModel(useCase: Domain.UseCaseProvider().createCategoryUseCase(), flowController: self)
     }
     
     // MARK: - Navigation
