@@ -27,7 +27,7 @@ class CategoryListViewController: UIViewController, BindableType {
 //        let viewWillAppear = rx.sentMessage(#selector(UIViewController.viewWillAppear(_:)))
 //            .map { _ in }
 //            .asDriver { error in return Driver.empty() }
-//        let input = CategoryListViewModel.Input(trigger: viewWillAppear.asDriver(), selection: self.tableView!.rx.itemSelected.asDriver())
+//        let input = CategoryListViewModel.Input(title: <#SharedSequence<DriverSharingStrategy, String>#>, details: <#SharedSequence<DriverSharingStrategy, String>#>, trigger: viewWillAppear.asDriver(), selection: self.tableView!.rx.itemSelected.asDriver())
 //        let output = viewModel.OutputTransformer(input: input)
 //        output.categories.asObservable()
 //            .bind(to: tableView.rx.items(cellIdentifier: reuseIdentifier)) { index, model, cell in

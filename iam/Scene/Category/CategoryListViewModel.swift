@@ -24,6 +24,7 @@ final class CategoryListViewModel: ViewModelType {
     }
     struct Output {
         // Realm test
+        let saved: Driver<Bool>
         let saveEnabled: Driver<Bool>
         // Originality
         let fetching: Observable<Bool>
@@ -39,35 +40,39 @@ final class CategoryListViewModel: ViewModelType {
         self.flowController = flowController
     }
     
-//    func OutputTransformer(input: Input) -> Output {
-//        let activityIndicator = ActivityIndicator()
-//
-//        let content = Driver.combineLatest(input.title, input.details ) { (title, detail) in
-//            return (title, detail)
-//        }
-//        let save = input.saveTrigger.withLatestFrom(content)
-//            .map { (title, content) in
-//                return IamCategory(id: "1", name: "work", depiction: "worker holic", aa: "bb")
-//            }
-//            .flatMapLatest { [unowned self] in
-//                return self.useCase.save(post: $0)
-//                    .trackActivity(activityIndicator)
-//                    .asDriverOnErrorJustComplete()
-//        }
-//
-//        let fetching = activityIndicator.asObservable()
-//
-//        let cates = input.trigger.flatMapLatest {
-//            return self.useCase
-//                .Categories()
-//                .trackActivity(activityIndicator)
-//                .asDriverOnErrorJustComplete()
-//                .map { $0 }
-//        }
-////        let selectedCategory = input.selection
-////            .withLatestFrom(cates) { (indexPath, categories) -> IamCategory in
-////                return categories[indexPath.row].post
-////        }
-//        return Output(saveEnabled: <#SharedSequence<DriverSharingStrategy, Bool>#>, fetching: fetching, categories: cates)
-//    }
+    func OutputTransformer(input: Input) -> Output {
+        let activityIndicator = ActivityIndicator()
+
+        let content = Driver.combineLatest(input.title, input.details ) { (title, detail) in
+            return (title, detail)
+        }
+        
+        let save = input.saveTrigger.withLatestFrom(content)
+            .map { (title, content) in
+                return IamCategory(id: "1", name: "work", depiction: "worker holic", aa: "bb")
+            }
+            .flatMapLatest { [unowned self] in
+                return self.useCase.save(item: $0)
+                    .trackActivity(activityIndicator)
+                    .asDriverOnErrorJustComplete()
+        }
+        
+        let saved = Driver.combineLatest(save, activityIndicator.asDriver()) {
+            return !$0.isEmpty && !$1
+        }
+        
+        let canSave = Driver.combineLatest(content, activityIndicator.asDriver()) {
+            return !$0.0.isEmpty && !$0.1.isEmpty && !$1
+        }
+
+        let fetching = activityIndicator.asObservable()
+        let cates = input.trigger.flatMapLatest { _ in
+            return self.useCase
+                .categories()
+                .trackActivity(activityIndicator)
+                .asDriverOnErrorJustComplete()
+                .map { $0 }
+        }
+        return Output(saved: saved, saveEnabled: canSave, fetching: fetching, categories: cates)
+    }
 }

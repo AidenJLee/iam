@@ -18,7 +18,7 @@ final class CategoryUseCase: Domain.CategoryUseCase {
         self.repository = repository
     }
     
-    func posts() -> Observable<[IamCategory]> {
+    func categories() -> Observable<[IamCategory]> {
         return repository.queryAll()
     }
     
@@ -27,7 +27,7 @@ final class CategoryUseCase: Domain.CategoryUseCase {
     }
     
     // Network dummy data
-    func Categories() -> Observable<[IamCategory]> {
+    func CategoriesWithNetwork() -> Observable<[IamCategory]> {
         return createTeamCategoryArray()
     }
 }

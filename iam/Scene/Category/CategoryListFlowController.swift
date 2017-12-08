@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Domain
+import Worker
 
 class CategoryListFlowController: UIViewController, StoryboardInitializable, SegueHandler {
     weak var delegate: CategoryListFlowController?
@@ -34,7 +34,8 @@ class CategoryListFlowController: UIViewController, StoryboardInitializable, Seg
     }
     
     func createViewModel() {
-//        viewModel = CategoryListViewModel(useCase: Domain.UseCaseProvider().createCategoryUseCase(), flowController: self)
+        let service = Worker.UseCaseProvider()
+        viewModel = CategoryListViewModel(useCase:service.makeCategoryUseCase() , flowController: self)
     }
     
     // MARK: - Navigation

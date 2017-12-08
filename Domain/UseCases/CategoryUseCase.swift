@@ -10,5 +10,6 @@ import Foundation
 import RxSwift
 
 public protocol CategoryUseCase {
-    func Categories() -> Observable<[IamCategory]>
+    func categories() -> Observable<[IamCategory]>
+    func save(item: IamCategory) -> Observable<String>
 }
