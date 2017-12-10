@@ -13,7 +13,7 @@ import RxCocoa
 
 private let reuseIdentifier = "CellCategory"
 
-class CategoryListViewController: UIViewController, BindableType {
+class CategoryListViewController: UIViewController, BindableType, StoryboardInitializable {
     weak var delegate: CategoryListFlowController?
     let viewState = Variable(ViewState.Empty)
     

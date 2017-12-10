@@ -7,22 +7,22 @@
 //
 
 import UIKit
+import Worker
 
-class SampleFlowController: UIViewController, StoryboardInitializable, SegueHandler {
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segueIdentifierCase(for: segue) {
-        case .embededSample:
-            var nextVC = segue.destination as! SampleViewController
-            nextVC.bindViewModel(to: SampleViewModel())
-        case .unnamed:
-            assertionFailure("Segue identifier empty; all segues should have an identifier.")
-        }
+class SampleFlowController: UIViewController, FlowControllerType {
+    var viewModel: SampleViewModel!
+    var containerVC: SampleViewController!
+    
+    func perform(from viewController: UIViewController) {
+//        let service = Worker.UseCaseProvider()
+        viewModel = SampleViewModel()
+        containerVC = SampleViewController.initFromStoryboard(name: .Main)
+        containerVC.bindViewModel(to: viewModel)
+        addChild(viewContoller: containerVC)
     }
-}
-
-extension SampleFlowController {
-    enum ViewControllerSegue: String {
-        case embededSample
-        case unnamed = ""
+    
+    override func loadView() {
+        super.loadView()
+        perform(from: self)
     }
 }

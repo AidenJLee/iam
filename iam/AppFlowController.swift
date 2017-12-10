@@ -10,72 +10,58 @@ import UIKit
 import Domain
 import Worker
 
-enum FirstScene {
-    case Login
-    case Tutorial
-    case Main
-    case Category
-}
-
 final class AppFlowController: UIViewController, FlowControllerType {
-    var showcase: FirstScene = .Main
+    var showcase: Scene = .Main
     private let useCaseProvider: Domain.UseCaseProvider = Worker.UseCaseProvider()
     @IBOutlet weak var lbIntro: UILabel!
     
+    var currentVC: UIViewController?
+    
+    // create ContainerViewController in LoadView()
+    override func loadView() {
+        super.loadView()
+        perform(from: self)
+    }
+    
+    // ContainerViewController view becomes visible -> if you want make NSLayoutConstraint and activate.
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        print("call viewWillLayoutSubviews")
+    }
+    
     override func viewDidLoad() {
-        
-        // warning: FlowController는 UI에 관여해서는 안된다.. 이 부분은 샘플로 임시 구현 부분. 향후 VC으로 변경하던가 사라질 예정
-        let attributedStringParagraphStyle = NSMutableParagraphStyle()
-        attributedStringParagraphStyle.alignment = NSTextAlignment.center
-        
-        let attributedString = NSMutableAttributedString(string: "‘I am’이\n자아를 만들고 있습니다.")
-        attributedString.addAttribute(NSAttributedStringKey.font, value:UIFont(name:"ArialMT", size:32.0)!, range:NSMakeRange(0,6))
-        attributedString.addAttribute(NSAttributedStringKey.font, value:UIFont(name:"AppleSDGothicNeo-Regular", size:19.0)!, range:NSMakeRange(6,1))
-        attributedString.addAttribute(NSAttributedStringKey.font, value:UIFont(name:"AppleSDGothicNeo-Regular", size:19.0)!, range:NSMakeRange(8,3))
-        attributedString.addAttribute(NSAttributedStringKey.font, value:UIFont(name:"AppleSDGothicNeo-Regular", size:19.0)!, range:NSMakeRange(12,3))
-        attributedString.addAttribute(NSAttributedStringKey.font, value:UIFont(name:"AppleSDGothicNeo-Regular", size:19.0)!, range:NSMakeRange(16,5))
-        attributedString.addAttribute(NSAttributedStringKey.paragraphStyle, value:attributedStringParagraphStyle, range:NSMakeRange(0,21))
-        attributedString.addAttribute(NSAttributedStringKey.foregroundColor, value:UIColor(red:0.675, green:0.799, blue:0.791, alpha:1.0), range:NSMakeRange(0,6))
-        attributedString.addAttribute(NSAttributedStringKey.foregroundColor, value:UIColor(red:1.0, green:1.0, blue:1.0, alpha:1.0), range:NSMakeRange(6,14))
-        self.lbIntro.attributedText = attributedString
-        
         let time = DispatchTime.now() + .seconds(2)
         DispatchQueue.main.asyncAfter(deadline: time) {
+            self.showcase = .Category
             self.perform(from: self)
         }
-        
     }
     
     func perform(from viewController: UIViewController) {
+        if let vc = currentVC {
+            removeChild(viewContoller: vc)
+        }
         switch showcase {
         case .Login:
-            showLogin()
+            currentVC = LoginFlowController.initFromStoryboard(name: .Login)
         case .Tutorial:
-            showTutorial()
+            currentVC = InstructionBookFlowController.initFromStoryboard(name: .Main)
         case .Main:
-            showMain()
+            currentVC = SampleFlowController()
         case .Category:
-            showMain()
+            currentVC = CategoryListFlowController()
         }
-    }
-    
-    private func showLogin() {
-        let vc = LoginFlowController.initFromStoryboard(name: .Login)
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    private func showTutorial() {
-        
-    }
-    
-    private func showMain() {
-        let vc = InstructionBookFlowController.initFromStoryboard(name: .Main)
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
-
-    private func showCategory() {
-    
+        // 원래는 네비게이션으로 넣는건데.. 컨테이너에 컨테이너 테스트겸 addChild로 넣어 봄.
+        addChild(viewContoller: currentVC!)
+//        self.navigationController?.pushViewController(currentVC!, animated: true)
     }
 }
 
-
+extension AppFlowController {
+    enum Scene {
+        case Login
+        case Tutorial
+        case Main
+        case Category
+    }
+}

@@ -17,7 +17,19 @@
                     <view key="view" contentMode="scaleToFill" id="EMB-ie-ByT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login VC" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H6N-KK-SCs">
+                                <rect key="frame" x="152.5" y="333" width="69" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="H6N-KK-SCs" firstAttribute="centerX" secondItem="S3b-zk-T4Z" secondAttribute="centerX" id="LAL-qz-JK6"/>
+                            <constraint firstItem="H6N-KK-SCs" firstAttribute="centerY" secondItem="S3b-zk-T4Z" secondAttribute="centerY" id="flK-Q0-ul1"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="S3b-zk-T4Z"/>
                     </view>
                 </viewController>
