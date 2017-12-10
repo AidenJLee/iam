@@ -27,6 +27,13 @@ final class AppFlowController: UIViewController, FlowControllerType {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         print("call viewWillLayoutSubviews")
+        // 이런식으로 사이즈 업데이트... 나중에 snapkit으로 변경.
+//        NSLayoutConstraint.activate([
+//            self.currentVC.view.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 0),
+//            self.currentVC.view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
+//            self.currentVC.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0),
+//            self.currentVC.view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0)
+//            ])
     }
     
     override func viewDidLoad() {
