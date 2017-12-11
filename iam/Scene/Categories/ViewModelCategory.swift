@@ -1,5 +1,5 @@
 //
-//  CategoryListViewModel.swift
+//  ViewModelCategory.swift
 //  iam
 //
 //  Created by HoJun Lee on 2017. 11. 24..
@@ -11,7 +11,7 @@ import Worker
 import RxSwift
 import RxCocoa
 
-final class CategoryListViewModel: ViewModelType {
+final class ViewModelCategory: FlowableType {
     struct Input {
         // realm 기능 테스트 용
         let title: Driver<String>
@@ -33,14 +33,12 @@ final class CategoryListViewModel: ViewModelType {
     }
     
     private let useCase: CategoryUseCase
-    private let flowController: CategoryListFlowController
     
-    init(useCase: CategoryUseCase, flowController: CategoryListFlowController) {
+    init(useCase: CategoryUseCase) {
         self.useCase = useCase
-        self.flowController = flowController
     }
     
-    func OutputTransformer(input: Input) -> Output {
+    func transformation(input: ViewModelCategory.Input) -> ViewModelCategory.Output {
         let activityIndicator = ActivityIndicator()
 
         let content = Driver.combineLatest(input.title, input.details ) { (title, detail) in
@@ -64,7 +62,7 @@ final class CategoryListViewModel: ViewModelType {
         let canSave = Driver.combineLatest(content, activityIndicator.asDriver()) {
             return !$0.0.isEmpty && !$0.1.isEmpty && !$1
         }
-
+        
         let fetching = activityIndicator.asObservable()
         let cates = input.trigger.flatMapLatest { _ in
             return self.useCase
@@ -74,5 +72,13 @@ final class CategoryListViewModel: ViewModelType {
                 .map { $0 }
         }
         return Output(saved: saved, saveEnabled: canSave, fetching: fetching, categories: cates)
+    }
+}
+
+extension ViewModelCategory {
+    static func vend() -> UIViewController {
+        var vc = CategoryViewController()
+//        vc.bindViewModel(to: self)
+        return vc
     }
 }

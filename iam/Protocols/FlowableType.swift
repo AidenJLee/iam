@@ -1,15 +1,15 @@
 //
-//  ViewModelType.swift
+//  FlowableType.swift
 //  iam
 //
-//  Created by HoJun Lee on 2017. 11. 23..
+//  Created by HoJun Lee on 2017. 12. 11..
 //  Copyright © 2017년 HoJun Lee. All rights reserved.
 //
 
 import Foundation
 
-protocol ViewModelType {
+protocol FlowableType {
     associatedtype Input
     associatedtype Output
-//    func OutputTransformer(input: Input) -> Output
+    func transformation(input: Input) -> Output
 }

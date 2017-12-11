@@ -1,5 +1,5 @@
 //
-//  CategoryListViewController.swift
+//  CategoryViewController.swift
 //  iam
 //
 //  Created by HoJun Lee on 2017. 11. 24..
@@ -13,12 +13,10 @@ import RxCocoa
 
 private let reuseIdentifier = "CellCategory"
 
-class CategoryListViewController: UIViewController, BindableType, StoryboardInitializable {
-    weak var delegate: CategoryListFlowController?
-    let viewState = Variable(ViewState.Empty)
-    
+class CategoryViewController: UIViewController, BindableType, StoryboardInitializable {
     let bag = DisposeBag()
-    var viewModel: CategoryListViewModel!
+    var viewModel: ViewModelCategory!
+    let viewState = Variable(ViewState.Empty)
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -41,15 +39,4 @@ class CategoryListViewController: UIViewController, BindableType, StoryboardInit
         self.tableView!.register(UITableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-}
-
-extension CategoryListViewController {
-    func assertDependencies() {
-        assert(viewModel != nil)
-    }
 }

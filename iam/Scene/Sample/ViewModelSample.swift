@@ -1,5 +1,5 @@
 //
-//  LoginViewModel.swift
+//  SampleViewModel.swift
 //  iam
 //
 //  Created by HoJun Lee on 2017. 12. 1..
@@ -10,7 +10,7 @@ import Domain
 import RxSwift
 import RxCocoa
 
-final class LoginViewModel: ViewModelType {
+final class SampleViewModel: FlowableType {
     struct Input {
         let trigger: Driver<Void>
         let selection: Driver<IndexPath>
@@ -25,8 +25,9 @@ final class LoginViewModel: ViewModelType {
         
     }
     
-    func OutputTransformer(input: Input) -> Output {
+    func transformation(input: SampleViewModel.Input) -> SampleViewModel.Output {
         let activityIndicator = ActivityIndicator()
         return Output(fetching: activityIndicator.asObservable())
     }
 }
+

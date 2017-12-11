@@ -10,17 +10,37 @@ import UIKit
 import RxSwift
 
 class SampleViewController: UIViewController, BindableType, StoryboardInitializable {
+    enum Input {
+    }
+    enum Output {
+        case saveAction
+        case cancelAction
+    }
     let bag = DisposeBag()
     var viewModel: SampleViewModel!
     @IBOutlet weak var lbIntro: UILabel!
     
     func bindViewModel() {
         assert(viewModel != nil)
-        print("implement bind something")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        decorateLabel()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("resources: \(RxSwift.Resources.total)")
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+}
+
+extension SampleViewController {
+    func decorateLabel() {
         let attributedStringParagraphStyle = NSMutableParagraphStyle()
         attributedStringParagraphStyle.alignment = NSTextAlignment.center
         
@@ -34,14 +54,5 @@ class SampleViewController: UIViewController, BindableType, StoryboardInitializa
         attributedString.addAttribute(NSAttributedStringKey.foregroundColor, value:UIColor(red:0.675, green:0.799, blue:0.791, alpha:1.0), range:NSMakeRange(0,6))
         attributedString.addAttribute(NSAttributedStringKey.foregroundColor, value:UIColor(red:1.0, green:1.0, blue:1.0, alpha:1.0), range:NSMakeRange(6,14))
         self.lbIntro.attributedText = attributedString
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        print("resources: \(RxSwift.Resources.total)")
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
     }
 }

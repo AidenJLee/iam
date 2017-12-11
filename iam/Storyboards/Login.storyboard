@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Login Flow Controller-->
+        <!--Login View Controller-->
         <scene sceneID="V86-c2-gCN">
             <objects>
-                <viewController storyboardIdentifier="LoginFlowController" id="Wbe-YN-BrB" customClass="LoginFlowController" customModule="iam" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" id="Wbe-YN-BrB" customClass="LoginViewController" customModule="iam" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EMB-ie-ByT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

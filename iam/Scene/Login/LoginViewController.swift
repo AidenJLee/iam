@@ -9,9 +9,9 @@
 import UIKit
 import RxSwift
 
-class LoginViewController: UIViewController, BindableType {
+class LoginViewController: UIViewController, BindableType, StoryboardInitializable {
     let bag = DisposeBag()
-    var viewModel: LoginViewModel!
+    var viewModel: ViewModelLogin!
     
     func bindViewModel() {
         assert(viewModel != nil)

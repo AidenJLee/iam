@@ -17,7 +17,6 @@ final class CM {
     // Tutorial
     var isComplatedTutorial: Bool
     
-    
     static let shared = CM()
     private init() {
         userId = Defaults[.userId]

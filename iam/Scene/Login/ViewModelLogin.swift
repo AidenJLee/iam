@@ -1,8 +1,8 @@
 //
-//  InstructionBookViewModel.swift
+//  ViewModelLogin.swift
 //  iam
 //
-//  Created by HoJun Lee on 2017. 11. 30..
+//  Created by HoJun Lee on 2017. 12. 1..
 //  Copyright © 2017년 HoJun Lee. All rights reserved.
 //
 
@@ -10,7 +10,7 @@ import Domain
 import RxSwift
 import RxCocoa
 
-final class InstructionBookViewModel: ViewModelType {
+final class ViewModelLogin: FlowableType {
     struct Input {
         let trigger: Driver<Void>
         let selection: Driver<IndexPath>
@@ -25,7 +25,7 @@ final class InstructionBookViewModel: ViewModelType {
         
     }
     
-    func OutputTransformer(input: Input) -> Output {
+    func transformation(input: ViewModelLogin.Input) -> ViewModelLogin.Output {
         let activityIndicator = ActivityIndicator()
         return Output(fetching: activityIndicator.asObservable())
     }
