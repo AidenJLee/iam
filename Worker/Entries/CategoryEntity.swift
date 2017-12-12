@@ -24,14 +24,14 @@ final class RMCategory: Object {
 
 // Convertable
 extension RMCategory: DomainConvertableType {
-    func asDomain() -> IamCategory {
-        return IamCategory(id: id, name: name, depiction: depiction, aa: aa)
+    func asDomain() -> ICategory {
+        return ICategory(id: id, name: name, depiction: depiction, aa: aa)
     }
 }
 
-extension IamCategory: RealmRepresentable {
+extension ICategory: RealmRepresentable {
     internal var uid: String {
-        return ""
+        return id
     }
     
     func asRealm() -> RMCategory {
@@ -45,7 +45,7 @@ extension IamCategory: RealmRepresentable {
 }
 
 // Mapping
-extension IamCategory: ImmutableMappable {      // JSON -> Object
+extension ICategory: ImmutableMappable {      // JSON -> Object
     public init(map: Map) throws {
         id = try map.value("id")
         name = try map.value("name")

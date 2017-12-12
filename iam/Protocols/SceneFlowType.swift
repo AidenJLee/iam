@@ -7,12 +7,13 @@
 //
 
 import UIKit
+import RxSwift
 
 protocol SceneType: class {
     associatedtype Scene
     var showCase: Scene! { get set }
     func sceneSwitch(scene: Self.Scene)
-    func perform(from viewController: UIViewController)
+    func perform(from viewController: UIViewController) -> Observable<Void>
 }
 
 extension SceneType where Self: UIViewController {

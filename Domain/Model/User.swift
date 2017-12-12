@@ -7,20 +7,20 @@
 //
 
 public struct User {
-    public let uid: String
+    public let id: String
     public let nickName: String
     public let email: String
     public let name: String?
     public let phone: String?
     public let certificateUrl: String?
     
-    public init(uid: String,
+    public init(id: String,
                 nickName: String,
                 email: String,
                 name: String?,
                 phone: String?,
                 certiUrl: String?) {
-        self.uid = uid
+        self.id = id
         self.nickName = nickName
         self.email = email
         self.name = name
@@ -31,8 +31,7 @@ public struct User {
 
 extension User: Equatable {
     public static func == (lhs: User, rhs: User) -> Bool {
-        return lhs.uid == rhs.uid &&
-            lhs.uid == rhs.uid &&
+        return lhs.id == rhs.id &&
             lhs.nickName == rhs.nickName &&
             lhs.email == rhs.email &&
             lhs.name == rhs.name &&

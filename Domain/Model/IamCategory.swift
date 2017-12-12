@@ -1,12 +1,12 @@
 //
-//  IamCategory.swift
+//  ICategory.swift
 //  Domain
 //
 //  Created by HoJun Lee on 2017. 12. 1..
 //  Copyright © 2017년 HoJun Lee. All rights reserved.
 //
 
-public struct IamCategory {
+public struct ICategory {
     public let id: String
     public let name: String
     public let depiction: String
@@ -23,8 +23,8 @@ public struct IamCategory {
     }
 }
 
-extension IamCategory: Equatable {
-    public static func == (lhs: IamCategory, rhs: IamCategory) -> Bool {
+extension ICategory: Equatable {
+    public static func == (lhs: ICategory, rhs: ICategory) -> Bool {
         return lhs.id == rhs.id &&
             lhs.name == rhs.name &&
             lhs.depiction == rhs.depiction &&

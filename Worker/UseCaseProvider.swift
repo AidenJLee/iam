@@ -22,7 +22,7 @@ public final class UseCaseProvider: Domain.UseCaseProvider {
     }
     
     public func makeCategoryUseCase() -> Domain.CategoryUseCase {
-        let repository = Repository<IamCategory>(configuration: configuration)
+        let repository = Repository<ICategory>(configuration: configuration)
         return CategoryUseCase(repository: repository)
     }
 }

@@ -28,16 +28,16 @@ class SceneCategory: UIViewController, SceneType {
         viewModel = ViewModelCategory(useCase:service.makeCategoryUseCase())
         containerVC = CategoryViewController.initFromStoryboard(name: .Main)
         containerVC.bindViewModel(to: viewModel)
-        //        addChild(viewContoller: containerVC)
+        addChild(viewContoller: containerVC)
     }
     
-    func perform(from viewController: UIViewController) {
-        
+    func perform(from viewController: UIViewController) -> Observable<Void> {
+        return Observable.empty()
     }
     
     override func loadView() {
         super.loadView()
-        perform(from: self)
+        sceneSwitch(scene: .Dateil)
     }
     
     override func viewDidLoad() {

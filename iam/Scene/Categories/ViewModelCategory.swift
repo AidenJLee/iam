@@ -28,9 +28,11 @@ final class ViewModelCategory: FlowableType {
         let saveEnabled: Driver<Bool>
         // Originality
         let fetching: Observable<Bool>
-        let categories: Driver<[IamCategory]>
-//        let selectedCategory: Driver<IamCategory>
+        let categories: Driver<[ICategory]>
+//        let selectedCategory: Driver<ICategory>
     }
+    
+    let sceneTriger = BehaviorSubject(value: "")
     
     private let useCase: CategoryUseCase
     
@@ -45,9 +47,11 @@ final class ViewModelCategory: FlowableType {
             return (title, detail)
         }
         
-        let save = input.saveTrigger.withLatestFrom(content)
+        let save = input.saveTrigger.withLatestFrom(Driver.combineLatest(input.title, input.details ) { (title, detail) in
+            return (title, detail)
+        })
             .map { (title, content) in
-                return IamCategory(id: "1", name: "work", depiction: "worker holic", aa: "bb")
+                return ICategory(id: "1", name: "work", depiction: "worker holic", aa: "bb")
             }
             .flatMapLatest { [unowned self] in
                 return self.useCase.save(item: $0)
@@ -76,9 +80,9 @@ final class ViewModelCategory: FlowableType {
 }
 
 extension ViewModelCategory {
-    static func vend() -> UIViewController {
-        var vc = CategoryViewController()
-//        vc.bindViewModel(to: self)
-        return vc
-    }
+//    static func vend() -> UIViewController {
+//        var vc = CategoryViewController()
+////        vc.bindViewModel(to: self)
+//        return vc
+//    }
 }

@@ -13,3 +13,7 @@ protocol FlowableType {
     associatedtype Output
     func transformation(input: Input) -> Output
 }
+
+extension FlowableType {
+    
+}

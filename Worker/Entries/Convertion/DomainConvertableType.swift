@@ -1,16 +1,8 @@
-//
-//  DomainConvertableType.swift
-//  Worker
-//
-//  Created by HoJun Lee on 2017. 12. 7..
-//  Copyright © 2017년 HoJun Lee. All rights reserved.
-//
-
 import Foundation
 
-typealias DomainConvertibleCoding = DomainConvertableType
+typealias DomainConvertableCoding = DomainConvertableType
 protocol Encodable {
-    associatedtype Encoder: DomainConvertibleCoding
+    associatedtype Encoder: DomainConvertableCoding
     var encoder: Encoder { get }
 }
 

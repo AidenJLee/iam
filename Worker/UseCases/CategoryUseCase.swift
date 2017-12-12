@@ -12,34 +12,34 @@ import RxSwift
 
 final class CategoryUseCase: Domain.CategoryUseCase {
     // Realm
-    private let repository: AbstractRepository<IamCategory>
+    private let repository: AbstractRepository<ICategory>
     
-    init(repository: AbstractRepository<IamCategory>) {
+    init(repository: AbstractRepository<ICategory>) {
         self.repository = repository
     }
     
-    func categories() -> Observable<[IamCategory]> {
+    func categories() -> Observable<[ICategory]> {
         return repository.queryAll()
     }
     
-    func save(item: IamCategory) -> Observable<String> {
+    func save(item: ICategory) -> Observable<String> {
         return repository.save(entity: item)
     }
     
     // Network dummy data
-    func CategoriesWithNetwork() -> Observable<[IamCategory]> {
+    func CategoriesWithNetwork() -> Observable<[ICategory]> {
         return createTeamCategoryArray()
     }
 }
 
-func createTeamCategoryArray() -> Observable<[IamCategory]> {
-    var arrCategories = Array<IamCategory>()
-    arrCategories.append(IamCategory(id: "1", name: "real me", depiction: "자아도취", aa: "none"))
-    arrCategories.append(IamCategory(id: "2", name: "work", depiction: "직장생활백서", aa: "none"))
-    arrCategories.append(IamCategory(id: "3", name: "habit", depiction: "좋은습관, 나쁜습관, 이상한 습관", aa: "none"))
-    arrCategories.append(IamCategory(id: "4", name: "body", depiction: "거울 들여다보기", aa: "none"))
-    arrCategories.append(IamCategory(id: "5", name: "emotion", depiction: "희노애락", aa: "none"))
-    arrCategories.append(IamCategory(id: "6", name: "living", depiction: "생활의 재발견", aa: "none"))
+func createTeamCategoryArray() -> Observable<[ICategory]> {
+    var arrCategories = Array<ICategory>()
+    arrCategories.append(ICategory(id: "1", name: "real me", depiction: "자아도취", aa: "none"))
+    arrCategories.append(ICategory(id: "2", name: "work", depiction: "직장생활백서", aa: "none"))
+    arrCategories.append(ICategory(id: "3", name: "habit", depiction: "좋은습관, 나쁜습관, 이상한 습관", aa: "none"))
+    arrCategories.append(ICategory(id: "4", name: "body", depiction: "거울 들여다보기", aa: "none"))
+    arrCategories.append(ICategory(id: "5", name: "emotion", depiction: "희노애락", aa: "none"))
+    arrCategories.append(ICategory(id: "6", name: "living", depiction: "생활의 재발견", aa: "none"))
     return Observable.from(optional: arrCategories)
 }
 
