@@ -31,8 +31,8 @@ class SceneCategory: UIViewController, SceneType {
         addChild(viewContoller: containerVC)
     }
     
-    func perform(from viewController: UIViewController) -> Observable<Void> {
-        return Observable.empty()
+    func perform(from viewController: UIViewController) {
+//        return Observable.empty()
     }
     
     override func loadView() {
