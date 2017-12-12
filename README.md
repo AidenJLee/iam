@@ -55,6 +55,8 @@ Carthage 설치 후 터미널에서 아래 명령어 실행 (iOS용만 빌드)
 
 일반적으로 통용 되는 부분도 있고 개인적인 생각으로 제한하는 부분도 있다.
 
+하지만 언제나 생각(Think)이 먼저다. 방법론 아키텍쳐를 왜 사용하는지 부터 고민하자. 
+
 
 
 ### 기본적으로 다음의 룰을 따른다
@@ -135,111 +137,6 @@ AssociatedObject를 가지고 구현하는 케이스가 있는데 추천하지 �
 1. 네트워크를 직접 호출하는 행위 - 이런 행위는 View와 관련된게 아니고 비지니스적인 로직이나 데이터에 관련 된 부분이기 때문에 ViewModel쪽으로 넘겨야 한다.
 2. 데이터 처리 - ViewModel을 View의 하위 클래스처럼 쓰는 말아라. VC에서 바인딩을 제외하고 ViewModel의 데이터에 직접 변경 할 일은 없다. (바인딩을 위한 접근은 언제나 가능하다)
 3. Helper 구현 - UI에 관한 핼퍼나 데이터 변경 처리 등등.. 다양한 기능을 VC에서 하는 경우가 있는데 이 또한 따로 라이브러리를 만들어 쓰거나 UI에 한정하여 (저장 속성을 사용하지 않는..Property등.. ) extension으로 구현하는것을 추천한다
-
-
-
-# Coordinator -> FlowController
-
-기존에는 VIPER의 Router 기능+@로 Coordinator를 구현 했었다.
-
-실상 Dependency Injection을 제외한 나머지 기능은 Storyboard의 기능이였고
-
-DI부분도 Storyboard의 segue를 확장하면 강제 할 수도 있었기 때문에 기존것을 확장하여 쓰기로 했다. 
-
-기본적으로 ViewController는 Container로 구현 했다.
-
----
-
-
-
-몇가지 변경점을 시사하자면.. 
-
-
-
-### App시작점에서 Window의 존재를 몰라도 된다.
-
-- Coordinator의 경우 아래와 같이 구현
-
-    window = UIWindow(frame: UIScreen.main.bounds)
-    appCoordinator = AppCoordinator(window: window!)
-    appCoordinator.start()
-    window?.makeKeyAndVisible()
-
-    ​
-
-- FlowController의 경우
-
-    appFlowController = AppFlowController(
-    window = UIWindow(frame: UIScreen.main.bounds)
-    window?.rootViewController = appFlowController
-    window?.makeKeyAndVisible()
-    appFlowController.perform()
-
-
-
-### Stack 추가 제거
-
-- Coordinator
-
-        import RxSwift
-        import UIKit
-        import Foundation
-        protocol FlowCoordinatorProtocol {
-        func coordinate<T>(to coordinator: FlowCoordinator<T>) -> Observable<T>
-        }
-        
-        class FlowCoordinator<ResultType>: FlowCoordinatorProtocol {
-        typealias CoordinationResult = ResultType
-        let disposeBag = DisposeBag()
-        let identifier = UUID()
-        let mainTabbarController: UITabBarController? = nil
-        private var childCoordinators = UUID: FlowCoordinatorProtocol
-        private func store<T>(coordinator: FlowCoordinator<T>) {
-            childCoordinators[coordinator.identifier] = coordinator
-        }
-        private func free<T>(coordinator: FlowCoordinator<T>) {
-            childCoordinators[coordinator.identifier] = nil
-        }
-        // ChileCoordinator가 있을경우 start()함수 호출과 함께 ChildCoordinator관련 정보를 다 지움
-        // 보통 present로 네비로 띄웠을 경우 이렇게 제거 함
-        func coordinate<T>(to coordinator: FlowCoordinator<T>) -> Observable<T> {
-            store(coordinator: coordinator)
-            return coordinator.start()
-                .do(onNext: { [weak self] _ in self?.free(coordinator: coordinator) })
-        }
-        /// - Returns: Result of coordinator job.
-        func start() -> Observable<ResultType> {
-            fatalError("Start method should be implemented.")
-        }
-    }
-
-위와 같은 구조에서 Store / free를 직접 호출하고 Login과 같은 새로 띄워야 하는 뷰는 coordinate를 통해 생성하여 나중에 지워야 하는 귀찮은 작업이 많다.
-
-
-
-- FlowController
-
-기존 스택의에 컨테이너 붙여서 사용 된다
-
-    extension UIViewController {
-      func add(childController: UIViewController) {
-        addChildViewController(childController)
-        view.addSubview(childController.view)
-        childController.didMove(toParentViewController: self)
-      }
-     
-      func remove(childController: UIViewController) {
-        childController.willMove(toParentViewController: nil)
-        childController.view.removeFromSuperview()
-        childController.removeFromParentViewController()
-      }
-    }
-
-기타 등등... 의 편의성에 의해 FlowController로 변경하여 구현 중이다.
-
-
-
-기타... 
 
 
 ## Bugs / Feature Requests
