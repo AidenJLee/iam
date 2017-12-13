@@ -20,9 +20,10 @@ final class Network<T: ImmutableMappable> {
         self.scheduler = ConcurrentDispatchQueueScheduler(qos: DispatchQoS(qosClass: DispatchQoS.QoSClass.background, relativePriority: 1))
     }
     
-    func getItems(_ absolutePath: String) -> Observable<[T]> {
+    func getItems(_ absolutePath: String, retryCount: Int = 1) -> Observable<[T]> {
         return RxAlamofire
             .json(.get, absolutePath)
+            .retry(retryCount)
             .debug()
             .observeOn(scheduler)
             .map({ json -> [T] in
@@ -30,9 +31,10 @@ final class Network<T: ImmutableMappable> {
             })
     }
     
-    func getItem(_ absolutePath: String) -> Observable<T> {
+    func getItem(_ absolutePath: String, retryCount: Int = 1) -> Observable<T> {
         return RxAlamofire
             .request(.get, absolutePath)
+            .retry(retryCount)
             .debug()
             .observeOn(scheduler)
             .map({ json -> T in
@@ -40,9 +42,10 @@ final class Network<T: ImmutableMappable> {
             })
     }
     
-    func postItem(_ absolutePath: String, parameters: [String: Any]) -> Observable<T> {
+    func postItem(_ absolutePath: String, parameters: [String: Any], retryCount: Int = 1) -> Observable<T> {
         return RxAlamofire
             .request(.post, absolutePath, parameters: parameters)
+            .retry(retryCount)
             .debug()
             .observeOn(scheduler)
             .map({ json -> T in
@@ -50,9 +53,10 @@ final class Network<T: ImmutableMappable> {
             })
     }
     
-    func updateItem(_ absolutePath: String, parameters: [String: Any]) -> Observable<T> {
+    func updateItem(_ absolutePath: String, parameters: [String: Any], retryCount: Int = 1) -> Observable<T> {
         return RxAlamofire
             .request(.put, absolutePath, parameters: parameters)
+            .retry(retryCount)
             .debug()
             .observeOn(scheduler)
             .map({ json -> T in
@@ -60,9 +64,10 @@ final class Network<T: ImmutableMappable> {
             })
     }
     
-    func deleteItem(_ absolutePath: String) -> Observable<T> {
+    func deleteItem(_ absolutePath: String, retryCount: Int = 1) -> Observable<T> {
         return RxAlamofire
             .request(.delete, absolutePath)
+            .retry(retryCount)
             .debug()
             .observeOn(scheduler)
             .map({ json -> T in

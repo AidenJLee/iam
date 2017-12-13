@@ -11,7 +11,7 @@ import Foundation
 protocol FlowableType {
     associatedtype Input
     associatedtype Output
-    func transformation(input: Input) -> Output
+//    func transformation(input: Input) -> Output
 }
 
 extension FlowableType {

@@ -1,5 +1,5 @@
 //
-//  User+Mapping.swift
+//  EntityUser.swift
 //  Worker
 //
 //  Created by HoJun Lee on 2017. 12. 1..
@@ -47,6 +47,7 @@ extension User: RealmRepresentable {
     }
 }
 
+// Domain Mapping
 extension User: ImmutableMappable {     // JSON -> Object
     public init(map: Map) throws {
         id = try map.value("id")

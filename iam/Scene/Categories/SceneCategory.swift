@@ -25,7 +25,7 @@ class SceneCategory: UIViewController, SceneType {
     
     func sceneSwitch(scene: SceneCategory.Scene) {
         let service = Worker.UseCaseProvider()
-        viewModel = ViewModelCategory(useCase:service.makeCategoryUseCase())
+        viewModel = ViewModelCategory(useCase:service.makeUseCaseCategory())
         containerVC = CategoryViewController.initFromStoryboard(name: .Main)
         containerVC.bindViewModel(to: viewModel)
         addChild(viewContoller: containerVC)

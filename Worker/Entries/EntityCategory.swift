@@ -1,5 +1,5 @@
 //
-//  CategoryEntity.swift
+//  EntityCategory.swift
 //  Worker
 //
 //  Created by HoJun Lee on 2017. 12. 8..
@@ -44,7 +44,7 @@ extension ICategory: RealmRepresentable {
     }
 }
 
-// Mapping
+// Domain Mapping
 extension ICategory: ImmutableMappable {      // JSON -> Object
     public init(map: Map) throws {
         id = try map.value("id")

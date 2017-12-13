@@ -10,6 +10,6 @@ import Foundation
 
 // MARK: - Interface
 public protocol UseCaseProvider {
-    func makeCategoryUseCase() -> CategoryUseCase
-    //    func makeAnswersUseCase() -> AnswerUseCase
+    func makeUseCaseUser() -> UseCaseUser
+    func makeUseCaseCategory() -> UseCaseCategory
 }

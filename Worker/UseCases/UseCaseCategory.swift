@@ -1,37 +1,29 @@
 //
-//  CategoryUseCase.swift
+//  UseCaseCategory.swift
 //  Worker
 //
 //  Created by HoJun Lee on 2017. 12. 1..
 //  Copyright © 2017년 HoJun Lee. All rights reserved.
 //
 
-import Foundation
 import Domain
 import RxSwift
+import RealmSwift
 
-final class CategoryUseCase: Domain.CategoryUseCase {
-    // Realm
-    private let repository: AbstractRepository<ICategory>
-    
-    init(repository: AbstractRepository<ICategory>) {
-        self.repository = repository
-    }
-    
+final class UseCaseCategory: Domain.UseCaseCategory {
+    private let network = Network<ICategory>()
+
     func categories() -> Observable<[ICategory]> {
-        return repository.queryAll()
+        return network.getItems(APICategory.Categories.urlString)
     }
-    
-    func save(item: ICategory) -> Observable<String> {
-        return repository.save(entity: item)
-    }
-    
-    // Network dummy data
+
+    // dummy
     func CategoriesWithNetwork() -> Observable<[ICategory]> {
         return createTeamCategoryArray()
     }
 }
 
+// Network dummy data
 func createTeamCategoryArray() -> Observable<[ICategory]> {
     var arrCategories = Array<ICategory>()
     arrCategories.append(ICategory(id: "1", name: "real me", depiction: "자아도취", aa: "none"))

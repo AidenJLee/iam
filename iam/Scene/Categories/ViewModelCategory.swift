@@ -32,51 +32,52 @@ final class ViewModelCategory: FlowableType {
 //        let selectedCategory: Driver<ICategory>
     }
     
+    // 
     let sceneTriger = BehaviorSubject(value: "")
     
-    private let useCase: CategoryUseCase
+    private let useCase: UseCaseCategory
     
-    init(useCase: CategoryUseCase) {
+    init(useCase: UseCaseCategory) {
         self.useCase = useCase
     }
     
-    func transformation(input: ViewModelCategory.Input) -> ViewModelCategory.Output {
-        let activityIndicator = ActivityIndicator()
-
-        let content = Driver.combineLatest(input.title, input.details ) { (title, detail) in
-            return (title, detail)
-        }
-        
-        let save = input.saveTrigger.withLatestFrom(Driver.combineLatest(input.title, input.details ) { (title, detail) in
-            return (title, detail)
-        })
-            .map { (title, content) in
-                return ICategory(id: "1", name: "work", depiction: "worker holic", aa: "bb")
-            }
-            .flatMapLatest { [unowned self] in
-                return self.useCase.save(item: $0)
-                    .trackActivity(activityIndicator)
-                    .asDriverOnErrorJustComplete()
-        }
-        
-        let saved = Driver.combineLatest(save, activityIndicator.asDriver()) {
-            return !$0.isEmpty && !$1
-        }
-        
-        let canSave = Driver.combineLatest(content, activityIndicator.asDriver()) {
-            return !$0.0.isEmpty && !$0.1.isEmpty && !$1
-        }
-        
-        let fetching = activityIndicator.asObservable()
-        let cates = input.trigger.flatMapLatest { _ in
-            return self.useCase
-                .categories()
-                .trackActivity(activityIndicator)
-                .asDriverOnErrorJustComplete()
-                .map { $0 }
-        }
-        return Output(saved: saved, saveEnabled: canSave, fetching: fetching, categories: cates)
-    }
+//    func transformation(input: ViewModelCategory.Input) -> ViewModelCategory.Output {
+//        let activityIndicator = ActivityIndicator()
+//
+//        let content = Driver.combineLatest(input.title, input.details ) { (title, detail) in
+//            return (title, detail)
+//        }
+//
+//        let save = input.saveTrigger.withLatestFrom(Driver.combineLatest(input.title, input.details ) { (title, detail) in
+//            return (title, detail)
+//        })
+//            .map { (title, content) in
+//                return ICategory(id: "1", name: "work", depiction: "worker holic", aa: "bb")
+//            }
+//            .flatMapLatest { [unowned self] in
+//                return self.useCase.save(item: $0)
+//                    .trackActivity(activityIndicator)
+//                    .asDriverOnErrorJustComplete()
+//        }
+//
+//        let saved = Driver.combineLatest(save, activityIndicator.asDriver()) {
+//            return $0 && !$1
+//        }
+//
+//        let canSave = Driver.combineLatest(content, activityIndicator.asDriver()) {
+//            return !$0.0.isEmpty && !$0.1.isEmpty && !$1
+//        }
+//
+//        let fetching = activityIndicator.asObservable()
+//        let cates = input.trigger.flatMapLatest { _ in
+//            return self.useCase
+//                .categories()
+//                .trackActivity(activityIndicator)
+//                .asDriverOnErrorJustComplete()
+//                .map { $0 }
+//        }
+//        return Output(saved: saved, saveEnabled: canSave, fetching: fetching, categories: cates)
+//    }
 }
 
 extension ViewModelCategory {

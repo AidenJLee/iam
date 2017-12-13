@@ -7,25 +7,25 @@
 //
 
 public struct Answer {
-    public let uid: String
+    public let id: String
     public let userId: String
     public let questionId: String
-    public let answer: String
+    public let contents: String
     
-    public init(uid: String, userId: String, questionId: String, answer: String) {
-        self.uid = uid
+    public init(id: String, userId: String, questionId: String, contents: String) {
+        self.id = id
         self.userId = userId
         self.questionId = questionId
-        self.answer = answer
+        self.contents = contents
     }
 }
 
 extension Answer: Equatable {
     public static func == (lhs: Answer, rhs: Answer) -> Bool {
-        return lhs.uid == rhs.uid &&
+        return lhs.id == rhs.id &&
             lhs.userId == rhs.userId &&
             lhs.questionId == rhs.questionId &&
-            lhs.answer == rhs.answer
+            lhs.contents == rhs.contents
     }
 }
 
