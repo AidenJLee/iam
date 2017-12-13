@@ -9,30 +9,31 @@
 import UIKit
 import Worker
 import RxSwift
+import RxCocoa
 
 class SceneCategory: UIViewController, SceneType {
     struct Input {
-        let saveTrigger: Observable<Void>
+        let selecTriger: Observable<IndexPath>
     }
     struct Output {
         let saved: Observable<Bool>
     }
     
     var viewModel: ViewModelCategory!
-    var containerVC: CategoryViewController!
+    var containerVC: ViewControllerCategory!
     
     var showCase: SceneCategory.Scene!
     
     func sceneSwitch(scene: SceneCategory.Scene) {
-        let service = Worker.UseCaseProvider()
-        viewModel = ViewModelCategory(useCase:service.makeUseCaseCategory())
-        containerVC = CategoryViewController.initFromStoryboard(name: .Main)
-        containerVC.bindViewModel(to: viewModel)
-        addChild(viewContoller: containerVC)
+        
     }
     
     func perform(from viewController: UIViewController) {
-//        return Observable.empty()
+        let service = Worker.UseCaseProvider()
+        viewModel = ViewModelCategory(useCase:service.makeUseCaseCategory())
+        containerVC = ViewControllerCategory.initFromStoryboard(name: .Main)
+        containerVC.bindViewModel(to: viewModel)
+        addChild(viewContoller: containerVC)
     }
     
     override func loadView() {

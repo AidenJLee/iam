@@ -10,8 +10,7 @@ import Foundation
 import RxSwift
 
 public protocol UseCaseCategory {
-    // realm
-//    func categories() -> Observable<[ICategory]>
+    func categories() -> Observable<[ICategory]>
 //    func save(item: ICategory) -> Observable<Bool>
 //    func destory(item: ICategory) -> Observable<Bool>
 }

@@ -14,16 +14,13 @@ final class UseCaseCategory: Domain.UseCaseCategory {
     private let network = Network<ICategory>()
 
     func categories() -> Observable<[ICategory]> {
-        return network.getItems(APICategory.Categories.urlString)
-    }
-
-    // dummy
-    func CategoriesWithNetwork() -> Observable<[ICategory]> {
+        // dummy
         return createTeamCategoryArray()
+//        return network.getItems(APICategory.Categories.urlString)
     }
 }
 
-// Network dummy data
+// dummy data
 func createTeamCategoryArray() -> Observable<[ICategory]> {
     var arrCategories = Array<ICategory>()
     arrCategories.append(ICategory(id: "1", name: "real me", depiction: "자아도취", aa: "none"))

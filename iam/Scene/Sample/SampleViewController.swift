@@ -31,7 +31,7 @@ class SampleViewController: UIViewController, BindableType, StoryboardInitializa
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("resources: \(RxSwift.Resources.total)")
+//        print("resources: \(RxSwift.Resources.total)")
     }
     
     override func didReceiveMemoryWarning() {

@@ -24,7 +24,7 @@ final class AppScene: UIViewController, SceneType {
         case .Main:
             currentVC = SampleViewController.initFromStoryboard(name: .Main)
         case .Category:
-            currentVC = CategoryViewController.initFromStoryboard(name: .Main)
+            currentVC = ViewControllerCategory.initFromStoryboard(name: .Main)
         }
         addChild(viewContoller: currentVC!)
     }
@@ -55,7 +55,9 @@ final class AppScene: UIViewController, SceneType {
     override func viewDidLoad() {
         let time = DispatchTime.now() + .seconds(2)
         DispatchQueue.main.asyncAfter(deadline: time) {
-            self.replace(from: self.currentVC!, to: LoginViewController.initFromStoryboard(name: .Login))
+            self.removeChild(viewContoller: self.currentVC!)
+            let scene = SceneCategory()
+            scene.perform(from: self)
         }
     }
 }
