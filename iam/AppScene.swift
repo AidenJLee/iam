@@ -58,6 +58,7 @@ final class AppScene: UIViewController, SceneType {
             self.removeChild(viewContoller: self.currentVC!)
             let scene = SceneCategory()
             scene.perform(from: self)
+            self.addChild(viewContoller: scene)
         }
     }
 }

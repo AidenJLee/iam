@@ -10,9 +10,13 @@ import UIKit
 import Domain
 
 class TableViewCellCategory: UITableViewCell {
-
+    @IBOutlet weak var lbTitle: UILabel!
+    @IBOutlet weak var lbContents: UILabel!
+    
     func configuration(item: ICategory) {
-        self.textLabel?.text = item.name
+        print(lbTitle)
+//        self.lbTitle.text = item.name
+//        self.lbContents.text = item.depiction
     }
     
     override func awakeFromNib() {

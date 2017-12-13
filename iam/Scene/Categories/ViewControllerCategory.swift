@@ -33,7 +33,16 @@ class ViewControllerCategory: UIViewController, BindableType, StoryboardInitiali
                                       cellType: TableViewCellCategory.self)) { tableview, vm, cell in
                                         print(vm)
                                         cell.configuration(item: vm)
+                                        cell.textLabel?.text = vm.name
             }.disposed(by: bag)
+        
+//            .bind(to: tableView.rx.items) { tableview, index, element in
+//                let cell = tableview.dequeueReusableCell(withIdentifier: reuseIdentifier)
+//                cell?.textLabel?.text = element.name
+//                return cell!
+//        }.disposed(by: bag)
+        
+        
         
         tableView.rx
             .modelSelected(String.self)
