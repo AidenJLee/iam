@@ -16,15 +16,9 @@ Networdk부분은 Project - Targer - Network부분을 통해 분리 해 놓음
 
 
 
-FlowController부분이 궁금하다면
-
-iam/Common/Protocols 폴더와 iam/Common/Scene/Instructions 폴더 참고
-
-
-
 # Requirements
 
-- Swift 4.0 (KetPath부분 변경점으로 인해 4.0으로 제작 + 지금 엑스코드 설정이 4.0....)
+- Swift 4.0 (KetPath부분 변경점으로 인해 4.0으로 제작 + 지금 엑스코드 설정이 4.0)
 - Carthage
 
 Package manager
@@ -187,14 +181,6 @@ UI적인 요소와 View에 대한 초기 설정은 ViewController가 해야할 �
 이 부분은 계속 변경중이다. 
 
 ViewController와 ViewModel을 가지고 있으며 DI를 하는 기능이 메인이다. 
-
-여기에서 고빈은 Coordinator형식으로 네비게이터의 Sequence를 모두 관리 하는 형식으로 진행할지
-
-UIViewController를 상속받아서 네이게이터는 프레임워크를 사용하면서 내부에 Container형식으로 UI를 관리할지 고민이다.
-
-Less code, Less bug도 있고 향후 관리의 필요성이 줄어드는 방식은 후자의 방식이지만 관점의 분리 영역이나 아키텍처로 보면 전자의 방식이 더 좋은 방식이다. (Coordinator는 VIPER의 Route에 DI를 더한 방식이라고 생각하면 된다)
-
-두가지 모두 구현중이므로 결정 후 문서를 업데이트 하겠다.
 
 
 
